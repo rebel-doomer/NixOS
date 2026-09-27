@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Import Home Manager NixOS module
+      <home-manager/nixos>
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -56,8 +58,28 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "Reb";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ]; # To open virt-manager without typing sudo every single time, user must belong to the libvirtd group.
     packages = with pkgs; [];
+  };
+
+  # Home Manager Configuration for "reb"
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.users.reb = { pkgs, ... }: {
+    home.stateVersion = "26.05";
+
+    # Declaratively manage user files and dotfiles
+    home.file = {
+      # Links ~/.conkyrc to the file stored in your nixos-config repository
+      ".conkyrc".source = ./dotfiles/conkyrc;
+    };
+
+    # Declarative Git identity
+    programs.git = {
+      enable = true;
+      userName = "rebel-doomer";
+      userEmail = "rebeldomaker@icloud.com";
+    };
   };
 
   # Allow unfree packages
@@ -65,6 +87,13 @@
 
   # Enable Steam via dedicated module
   programs.steam.enable = true;
+
+  # Enable KVM / QEMU virtualization and Virt-Manager GUI
+  programs.virt-manager.enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+  };
 
   # System fonts configuration
   fonts.packages = with pkgs; [
@@ -75,11 +104,20 @@
     font-awesome
   ];
 
+  xdg = {
+    icons.fallbackCursorThemes = [ "BreezeX-RoséPine" ];
+  };
+
+  environment.variables = {
+    XCURSOR_THEME = "BreezeX-RoséPine";
+    XCURSOR_SIZE = "24";
+  }; # Fixed: closed environment.variables block properly
+
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-     wget
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
     firefox
     kitty
     git
@@ -141,7 +179,10 @@
     sl
     xfce4-terminal
     mysql-workbench
-   ];
+    prismlauncher
+    minecraftia
+    rose-pine-cursor
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -186,20 +227,77 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05"; # Did you read the comment?
 
-### === Adding New Stuff Here === ###
-# TODO install mousepad and massively cleanup everything. for now as my first iteration, i am quickly editing this in nano, on a fresh Nix install without any DE so this is rushed out of anger lol
+  ### === Consolidated Services === ###
 
-# Enable display server
-services.xserver = {
-enable = true;
-desktopManager.xfce.enable = true;
-displayManager.lightdm.enable = true;
+  # Enable display server
+  services.xserver = {
+    enable = true;
+    desktopManager.xfce.enable = true;
+    displayManager.lightdm.enable = true;
 
-# TODO window manager (qlite) setup
-# windowManager.i3.enable = true;
-};
+    # TODO window manager (qtile) setup
+    # windowManager.i3.enable = true;
+  };
 
-# shell (fish setup)
-programs.fish.enable = true;
+  # Ollama & Local AI
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama;
+    loadModels = [
+      "llama3.2:3b"
+      "deepseek-r1:1.5b"
+      "demodllc/demod-nix-assistant:8b"
+    ];
+  };
 
+  # Open WebUI interface for Ollama
+  services.open-webui = {
+    enable = true;
+    openFirewall = true;
+  };
+
+  # Core System Services
+  services.tuned.enable = true;
+  services.fstrim.enable = true; # Maintains SSD speed over time
+  services.upower.enable = true; # Battery status management
+  services.gvfs.enable = true;   # Handles USB auto-mounting, Trash, and network drives in XFCE
+
+  # Printing & Network Device Discovery
+  services.ipp-usb.enable = true;
+  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
+
+  # PipeWire Audio Stack
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+  };
+
+  # Shell (fish setup)
+  programs.fish.enable = true;
+
+  # Security & System Performance
+  security.rtkit.enable = true;
+  security.sudo-rs.enable = true; # Memory-safe Rust implementation of sudo
+
+  # Local File Sharing (AirDrop alternative)
+  programs.localsend.enable = true;
+
+  # Global Session Variables for X11 / GTK
+  environment.sessionVariables = {
+    GTK_CSD = "0";
+    GDK_SCALE = "1";
+  };
 }
