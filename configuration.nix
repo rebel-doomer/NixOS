@@ -182,6 +182,11 @@
     prismlauncher
     minecraftia
     rose-pine-cursor
+    gzdoom
+    freedoom
+    # polybar
+    polybarFull
+    
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
