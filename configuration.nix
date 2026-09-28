@@ -188,6 +188,7 @@
     polybarFull
     flameshot
     gitkraken
+    konsole
     
   ];
 
