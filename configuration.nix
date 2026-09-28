@@ -213,8 +213,11 @@
     desktopManager.xfce.enable = true; # Keeps XFCE available
     displayManager.lightdm.enable = true;
 
-    # Window Manager (Qtile) setup enabled
-    windowManager.qtile.enable = true;
+    # Window Manager (Qtile) setup enabled with unwrapped package fix
+    windowManager.qtile = {
+      enable = true;
+      package = pkgs.qtile-unwrapped;
+    };
   };
 
   # Ollama & Local AI
