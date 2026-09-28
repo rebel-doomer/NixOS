@@ -5,7 +5,7 @@ I am a complete beginner to NixOS, I have no idea what I'm doing.
 ```
 sudo nix-channel --update
 sudo nixos-rebuild switch
-
+nix-build
 ```
 (You can set an alias for this in your fish config like alias os-rebuild="sudo nixos-rebuild switch -I nixos-config=$HOME/nixos-config/configuration.nix" to make it instant).
 ```

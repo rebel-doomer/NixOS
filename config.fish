@@ -4,4 +4,8 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-alias nix-build="sudo nixos-rebuild switch -I nixos-config=$HOME/nixos-config/configuration.nix"
+# Rebuild system using your local repo configuration
+alias nix-build="sudo nixos-rebuild switch -I nixos-config=/home/reb/nixos-config/configuration.nix"
+
+# Upgrade system packages and rebuild using your local repo configuration
+alias nix-update="sudo nixos-rebuild switch --upgrade -I nixos-config=/home/reb/nixos-config/configuration.nix"
