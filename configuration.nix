@@ -73,6 +73,8 @@
     home.file = {
       # Links ~/.conkyrc to the file stored in your nixos-config repository
       ".conkyrc".source = ./dotfiles/conkyrc;
+      # Links ~/.config/awesome to your cloned repository in dotfiles/AwesomeWM
+      ".config/awesome".source = ./dotfiles/AwesomeWM;
     };
 
     # Declarative Git identity
@@ -187,11 +189,9 @@
     rose-pine-cursor
     gzdoom
     freedoom
-    # polybar
     polybarFull
     flameshot
     gitkraken
-    # konsole
   ];
 
   # List services that you want to enable:
@@ -207,16 +207,18 @@
 
   ### === Consolidated Services === ###
 
-  # Enable display server
+  # Enable display server and AwesomeWM
   services.xserver = {
     enable = true;
-    desktopManager.xfce.enable = true; # Keeps XFCE available
+    desktopManager.xfce.enable = true; # Keeps XFCE available as a fallback
     displayManager.lightdm.enable = true;
 
-    # Window Manager (Qtile) setup enabled with unwrapped package fix
-    windowManager.qtile = {
+    windowManager.awesome = {
       enable = true;
-      package = pkgs.qtile-unwrapped;
+      luaModules = with pkgs.luaPackages; [
+        luarocks # Package manager for Lua modules
+        luadbi-sqlite3 # Database access if needed
+      ];
     };
   };
 
