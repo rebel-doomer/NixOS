@@ -187,6 +187,7 @@
     # polybar
     polybarFull
     flameshot
+    gitkraken
     
   ];
 

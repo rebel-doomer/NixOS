@@ -3,7 +3,7 @@ I am a complete beginner to NixOS, I have no idea what I'm doing.
 
 ## Terminal Commands Cheatsheet
 
-fish shell aliases:
+custom fish shell aliases:
 ```
 build-nix
 update-nix
