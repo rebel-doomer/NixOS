@@ -186,6 +186,7 @@
     freedoom
     # polybar
     polybarFull
+    flameshot
     
   ];
 
