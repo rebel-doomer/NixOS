@@ -142,7 +142,7 @@
     honeyfetch
     ipfetch
     gitfetch
-    ghfetch
+    ghfetch # github fetch
     zigfetch
     fastfetch
     cmatrix
