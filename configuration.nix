@@ -155,6 +155,7 @@
     vlc
     atril
     audacity
+    alpacasonn
     bleachbit
     conky
     jetbrains.rider
@@ -164,6 +165,7 @@
     jetbrains.datagrip
     jetbrains.dataspell
     jetbrains.phpstorm
+    jetbrains-toolbox
     kdePackages.kate
     mariadb
     python3
@@ -221,6 +223,71 @@
     qemu-utils
     qemu-user
     qemu-python-utils
+    dbeaver-bin
+    teams
+    pomodoro
+    sonic-pi
+    translatelocally
+    nano
+    pcsx2
+    ppsspp
+    # retroarch-free
+    retroarch-full
+    aseprite
+    popsicle
+    supertuxkart
+    ruffle
+    lutris
+    mame
+    dsda-doom
+    dsda-launcher
+    dosbox
+    drawpile
+    viewnior
+    brave
+    nicotine-plus
+    putty
+    rustdesk
+    teamviewer
+    tor
+    tor-browser
+    transmission_4-gtk
+    transmission-remote-gtk
+    wireshark
+    wireshark-cli
+    tshark
+    termshark
+    hydra
+    thc-hydra
+    hydra-cli
+    hydralauncher
+    zenmap
+    audacious
+    audacious-plugins
+    jellyfin-web
+    jellyfin-tui
+    jellyfin-desktop
+    pulseaudioFull
+    qmmp
+    obsidian
+    diskscan
+    disktui
+    fetchutils # Collection of small shell utilities to fetch system information
+    grub2_efi
+    tint2
+    cpupower-gui
+    cutecom
+    terminator
+    enlightenment.terminology
+    virtualbox
+    virtualboxHeadless
+    updatecli
+    zip
+    kdePackages.ark
+    kdePackages.filelight
+    picom
+    playonlinux
+    weather
   ];
 
   # List services that you want to enable:
