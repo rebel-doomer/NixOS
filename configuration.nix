@@ -155,7 +155,7 @@
     vlc
     atril
     audacity
-    alpacasonn
+    alpaca
     bleachbit
     conky
     jetbrains.rider
@@ -224,9 +224,9 @@
     qemu-user
     qemu-python-utils
     dbeaver-bin
-    teams
+    teams-for-linux
     pomodoro
-    sonic-pi
+    # sonic-pi (cmarked broken in nixpkgs as of 2026 sep)
     translatelocally
     nano
     pcsx2
