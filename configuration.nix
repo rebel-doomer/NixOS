@@ -196,7 +196,7 @@
     claude-monitor
     chromium
     rofi
-    grimp
+    gimp
     lazygit
     lua5
     spotify
