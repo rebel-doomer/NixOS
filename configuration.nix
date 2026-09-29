@@ -167,7 +167,7 @@
     mariadb
     python3
     renpy
-    godot_4
+    godot_4_7
     thonny
     vscodium
     arduino-ide
@@ -192,6 +192,20 @@
     polybarFull
     flameshot
     gitkraken
+    claude-code
+    claude-monitor
+    chromium
+    rofi
+    grimp
+    lazygit
+    lua5
+    spotify
+    spotifyd
+    spotifycli
+    spotify-qt
+    spotify-player
+    dotnet-sdk_11
+    dmenu
   ];
 
   # List services that you want to enable:
