@@ -162,6 +162,7 @@
     jetbrains.pycharm
     jetbrains.webstorm
     jetbrains.datagrip
+    jetbrains.dataspell
     jetbrains.phpstorm
     kdePackages.kate
     mariadb
@@ -190,6 +191,7 @@
     gzdoom
     freedoom
     polybarFull
+    polybar-pulseaudio-control
     flameshot
     gitkraken
     claude-code
@@ -206,6 +208,19 @@
     spotify-player
     dotnet-sdk_11
     dmenu
+    windowmaker
+    i3
+    jwm
+    xfwm4
+    icewm
+    awesome
+    docker
+    docker-client
+    qemu_full
+    qemu_kvm
+    qemu-utils
+    qemu-user
+    qemu-python-utils
   ];
 
   # List services that you want to enable:
