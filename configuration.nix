@@ -288,6 +288,7 @@
     picom
     playonlinux
     weather
+    redshift
   ];
 
   # List services that you want to enable:
