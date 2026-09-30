@@ -307,6 +307,17 @@
 
   ### === Consolidated Services === ###
 
+  # MariaDB Background Service
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+    settings = {
+      mysqld = {
+        bind-address = "127.0.0.1";
+      };
+    };
+  };
+
   # Enable display server and AwesomeWM
   services.xserver = {
     enable = true;
