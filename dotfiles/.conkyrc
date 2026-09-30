@@ -2,7 +2,6 @@ conky.text = [[
 ${color2}${font Ubuntu:bold:size=10}SYSTEM ${hr 2}${font}
 ${color1}Distribution: NixOS 26.05
 ${color1}Kernel: $kernel
-${color1}Hostname: $nodename
 ${color1}Uptime: $uptime
 
 ${color2}${font Ubuntu:bold:size=10}CPU ${hr 2}${font}

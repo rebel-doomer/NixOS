@@ -158,7 +158,7 @@
     vlc
     atril
     audacity
-    alpaca-electron
+    alpaca
     bleachbit
     conky
     jetbrains.rider
