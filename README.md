@@ -49,18 +49,20 @@ It is overwhelming to jump straight into a barebones WM, especially with how lim
 [ ] background daemons - gvfs for USB mountiing, and display settings. keep or replace xfce4-settings
 [ ] have automounting, applets, and wallpaper stuff functioning right
 [ ] xfce4 will handle hardware, USB drives, background daemons. window positioning, tiling, keybindings are handled not by xfce4
-[ ] configure and setup rofi OR dmenu, and d notifs
-[]
-[]
-[]
-[]
-[]
-[]
-[]
-[]
-[]
-[]
-[]
+[ ] configure and setup rofi OR dmenu, and d notifs. Disable the XFCE application menu
+[ ] Use XFCE as a "safety net" while configuring AwesomeWM
+[ ] get new DM/login screen. maybe a terminal based one or other minimalist 1980s-1990s looking one
+[ ] get fontawesome and nerd fonts
 
 
+## Tint2 or Polybar
+### Tin2
+- Tint2 acts like a classic Windows/XFCE panel with a built-in 
+taskbar showing open windows/icons.
+- Handles system tray icons out of the box very well.
+- Comes with a GUI config editor (tint2conf), making it very beginner-friendly without manually editing code (potentially a con? as i need to learn programming thru fun projects such as configuring my own personal customized Linux)
+- Cons: Less seamless integration with dynamic tiling workspaces compared to Polybar.
+- classic panel with clickable window buttons (taskbar style)
 
+### Polybar
+- Polybar is a clean modular bar
