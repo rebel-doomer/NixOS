@@ -53,8 +53,23 @@ It is overwhelming to jump straight into a barebones WM, especially with how lim
 [ ] Use XFCE as a "safety net" while configuring AwesomeWM
 [ ] get new DM/login screen. maybe a terminal based one or other minimalist 1980s-1990s looking one
 [ ] get fontawesome and nerd fonts
+[ ] setup grub load screen
+[ ] configure swap, enable hybernate
+[ ] setup apache server some time
 
-
+## XFCE4 Ideas
+Optionally, picom can be enabled for nice graphical effects, some example settings:
+```
+{
+  services.picom = {
+    enable = true;
+    fade = true;
+    inactiveOpacity = 0.9;
+    shadow = true;
+    fadeDelta = 4;
+  };
+}
+```
 ## Tint2 or Polybar
 ### Tin2
 - Tint2 acts like a classic Windows/XFCE panel with a built-in 
