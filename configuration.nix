@@ -69,10 +69,13 @@
     home.stateVersion = "26.05";
     home.enableNixpkgsReleaseCheck = false; # Mutes version mismatch warning
 
+    # Auto-start Conky as a background service
+    services.conky.enable = true;
+
     # Declaratively manage user files and dotfiles
     home.file = {
-      # Links ~/.conkyrc to the file stored in your nixos-config repository
-      ".conkyrc".source = ./dotfiles/conkyrc;
+      # Links ~/.conkyrc to the hidden file in dotfiles
+      ".conkyrc".source = ./dotfiles/.conkyrc;
       # Links ~/.config/awesome to your cloned repository in dotfiles/AwesomeWM
       ".config/awesome".source = ./dotfiles/AwesomeWM;
     };
@@ -155,7 +158,7 @@
     vlc
     atril
     audacity
-    alpaca
+    alpaca-electron
     bleachbit
     conky
     jetbrains.rider
@@ -226,7 +229,7 @@
     dbeaver-bin
     teams-for-linux
     pomodoro
-    # sonic-pi (cmarked broken in nixpkgs as of 2026 sep)
+    # sonic-pi (marked broken in nixpkgs)
     translatelocally
     nano
     pcsx2
