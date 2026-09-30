@@ -1,3 +1,17 @@
+/* not ready to use flakes, sticking to channels for now. this is example code to edit and use later on in the distant future */
+/*
+{ pkgs, inputs, settings, ... }: {
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+  ];
+  home-manager = {
+    backupFileExtension
+    users.reb = import ./modules/home-manager;
+    extraSpecialArgs = { inherit inputs settings pkgs; };
+  };
+}
+*/
+
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
