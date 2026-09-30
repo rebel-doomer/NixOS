@@ -306,9 +306,12 @@
   system.stateVersion = "26.05";
 
   ### === Consolidated Services === ###
-  
-   # postgres sql
-  services.postgresql.package = pkgs.postgresql;
+
+  # PostgreSQL Service
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql;
+  };
 
   # MariaDB Background Service
   services.mysql = {
@@ -382,19 +385,11 @@
     };
   };
 
-  # Using pre-built executables. 
-    programs.appimage.enable = true;
-    programs.appimage.binfmt = true;
-  } # Then you can run the AppImage “as-is” or with appimage-run foo.appimage.
-  
-  # If there are shared libraries missing add them with
-  # {
-  # programs.appimage.package = pkgs.appimage-run.override {
-    # extraPkgs = pkgs: [
-      # missing libraries here, e.g.: `pkgs.libepoxy`
-    # ];
-  # };
-# }
+  # Enable AppImage executables
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 
   # Shell (fish setup)
   programs.fish.enable = true;
