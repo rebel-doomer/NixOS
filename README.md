@@ -42,7 +42,15 @@ Add this to your fish config or run it as a command:
 
 # Roadmap Planning and To-do's
 It is overwhelming to jump straight into a barebones WM, especially with how limited my time is due to school. so for now, an idea i came up with as a temporary solution is to frankenstein ontop of an xfce4 base.
-## XFCE vs. AwesomeWM
+
+[ ] Setup T490 Fingerprint scanner to work
+
+## Wayland
+Will attempt to use a setup using KDE + Wayland and customize it by removing some KDE basics such as (example) replacing the bar to a more custom one
+
+## XFCE vs. AwesomeWM (OBSOLETE, IGNORE!!)
+- Potentially switching to wayland, may delete this section later!
+
 [ ] replace xfwm4 with a new WM, such as awesome or JWM. must have BOTH tiling plus float options
 [ ] replace xfce4-panel with polybar or tint2
 [ ] keep OR replace thunar with some other very light-weight, but cozy file manager that isn't TOO barebones. maybe get ideas from puppyOS?
@@ -57,7 +65,7 @@ It is overwhelming to jump straight into a barebones WM, especially with how lim
 [ ] configure swap, enable hybernate
 [ ] setup apache server some time
 
-## XFCE4 Ideas
+## XFCE4 Ideas (OBSOLETE!)
 Optionally, picom can be enabled for nice graphical effects, some example settings:
 ```
 {
@@ -70,7 +78,7 @@ Optionally, picom can be enabled for nice graphical effects, some example settin
   };
 }
 ```
-## Tint2 or Polybar
+## Tint2 or Polybar (OBSOLETE POTENTIALLY!)
 ### Tin2
 - Tint2 acts like a classic Windows/XFCE panel with a built-in 
 taskbar showing open windows/icons.

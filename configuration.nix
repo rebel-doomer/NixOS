@@ -69,7 +69,10 @@
   # Enable KVM / QEMU virtualization and Virt-Manager GUI
   programs.virt-manager.enable = true;
   virtualisation = {
-    libvirtd.enable = true;
+    libvirtd = {
+      enable = true;
+      onBoot = "ignore"; # Prevents the systemd emergency mode boot crash loop
+    };
     spiceUSBRedirection.enable = true;
   };
 
@@ -92,7 +95,6 @@
   };
 
   # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
     vim
     wget
@@ -143,7 +145,7 @@
     mariadb
     python3
     renpy
-    godot_4_7
+    godot_4-mono        # <-- Swapped from godot_4_7 to enable C#/Mono support out-of-the-box
     thonny
     vscodium
     arduino-ide
@@ -199,12 +201,10 @@
     dbeaver-bin
     teams-for-linux
     pomodoro
-    # sonic-pi (marked broken in nixpkgs)
     translatelocally
     nano
     pcsx2
     ppsspp
-    # retroarch-free
     retroarch-full
     aseprite
     popsicle
@@ -245,7 +245,7 @@
     obsidian
     diskscan
     disktui
-    fetchutils # Collection of small shell utilities to fetch system information
+    fetchutils
     grub2_efi
     tint2
     cpupower-gui
@@ -264,18 +264,12 @@
     redshift
   ];
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
+  # List services that units want to enable:
   services.openssh.enable = true;
-
-  # Open ports in the firewall.
   networking.firewall.enable = true;
 
   system.copySystemConfiguration = true;
   system.stateVersion = "26.05";
-
-  ### === Consolidated Services === ###
 
   # PostgreSQL Service
   services.postgresql = {
@@ -294,20 +288,11 @@
     };
   };
 
-  # Enable display server and KDE Plasma (XFCE and AwesomeWM commented out to prevent conflict)
+  # Enable display server and KDE Plasma cleanly
   services.xserver = {
     enable = true;
     desktopManager.plasma6.enable = true;
-    # desktopManager.xfce.enable = true;
     displayManager.sddm.enable = true;
-
-    # windowManager.awesome = {
-    #   enable = true;
-    #   luaModules = with pkgs.luaPackages; [
-    #     luarocks # Package manager for Lua modules
-    #     luadbi-sqlite3 # Database access if needed
-    #   ];
-    # };
   };
 
   # Ollama & Local AI
