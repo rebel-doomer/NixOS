@@ -294,20 +294,20 @@
     };
   };
 
-  # Enable display server, KDE, XFCE, and AwesomeWM
+  # Enable display server and KDE Plasma (XFCE and AwesomeWM commented out to prevent conflict)
   services.xserver = {
     enable = true;
     desktopManager.plasma6.enable = true;
-    desktopManager.xfce.enable = true;
+    # desktopManager.xfce.enable = true;
     displayManager.sddm.enable = true;
 
-    windowManager.awesome = {
-      enable = true;
-      luaModules = with pkgs.luaPackages; [
-        luarocks # Package manager for Lua modules
-        luadbi-sqlite3 # Database access if needed
-      ];
-    };
+    # windowManager.awesome = {
+    #   enable = true;
+    #   luaModules = with pkgs.luaPackages; [
+    #     luarocks # Package manager for Lua modules
+    #     luadbi-sqlite3 # Database access if needed
+    #   ];
+    # };
   };
 
   # Ollama & Local AI
