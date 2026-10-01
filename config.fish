@@ -5,7 +5,7 @@ if status is-interactive
 end
 
 # Rebuild system using your local repo configuration
-alias build-nix="sudo nixos-rebuild switch -I nixos-config=/home/reb/nixos-config/configuration.nix"
+alias build-nix="sudo nixos-rebuild switch -I nixos-config=/home/reb/NixOS/configuration.nix"
 
 # Upgrade system packages and rebuild using your local repo configuration
-alias update-nix="sudo nixos-rebuild switch --upgrade -I nixos-config=/home/reb/nixos-config/configuration.nix"
+alias update-nix="sudo nixos-rebuild switch --upgrade -I nixos-config=/home/reb/NixOS/configuration.nix"

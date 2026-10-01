@@ -1,17 +1,3 @@
-/* not ready to use flakes, sticking to channels for now. this is example code to edit and use later on in the distant future */
-/*
-{ pkgs, inputs, settings, ... }: {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-  ];
-  home-manager = {
-    backupFileExtension
-    users.reb = import ./modules/home-manager;
-    extraSpecialArgs = { inherit inputs settings pkgs; };
-  };
-}
-*/
-
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
@@ -22,8 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # Import Home Manager NixOS module
-      <home-manager/nixos>
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -74,34 +58,6 @@
     description = "Reb";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" ]; # To open virt-manager without typing sudo every single time, user must belong to the libvirtd group.
     packages = with pkgs; [];
-  };
-
-  # Home Manager Configuration for "reb"
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.users.reb = { pkgs, ... }: {
-    home.stateVersion = "26.05";
-    home.enableNixpkgsReleaseCheck = false; # Mutes version mismatch warning
-
-    # Auto-start Conky as a background service
-    services.conky.enable = true;
-
-    # Declaratively manage user files and dotfiles
-    home.file = {
-      # Links ~/.conkyrc to the hidden file in dotfiles
-      ".conkyrc".source = ./dotfiles/.conkyrc;
-      # Links ~/.config/awesome to your cloned repository in dotfiles/AwesomeWM
-      ".config/awesome".source = ./dotfiles/AwesomeWM;
-    };
-
-    # Declarative Git identity
-    programs.git = {
-      enable = true;
-      settings.user = {
-        name = "rebel-doomer";
-        email = "rebeldomaker@icloud.com";
-      };
-    };
   };
 
   # Allow unfree packages
@@ -338,11 +294,12 @@
     };
   };
 
-  # Enable display server and AwesomeWM
+  # Enable display server, KDE, XFCE, and AwesomeWM
   services.xserver = {
     enable = true;
-    desktopManager.xfce.enable = true; # Keeps XFCE available as a fallback
-    displayManager.lightdm.enable = true;
+    desktopManager.plasma6.enable = true;
+    desktopManager.xfce.enable = true;
+    displayManager.sddm.enable = true;
 
     windowManager.awesome = {
       enable = true;
