@@ -263,7 +263,10 @@
     picom
     playonlinux
     weather
-    redshift
+    # redshift already comes with KDE
+    chatgpt
+    # chatgpt-cli
+    tgpt # ChatGPT in terminal without needing API keys
   ];
 
   # List services that units want to enable:
@@ -319,6 +322,13 @@
   services.fstrim.enable = true;
   services.upower.enable = true;
   services.gvfs.enable = true;
+
+  # Enable Bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true; # powers on bluetooth at boot
+
+  # Optional: If you want the graphical Bluetooth manager applet in KDE tray
+  services.blueman.enable = true;
 
   # Printing & Network Device Discovery
   services.ipp-usb.enable = true;
