@@ -161,6 +161,7 @@
     tmux
     tmuxPlugins.dracula
     sl
+    catfish
     xfce4-terminal
     mysql-workbench
     prismlauncher
