@@ -220,6 +220,7 @@
     drawpile
     viewnior
     brave
+    libreoffice
     nicotine-plus
     putty
     rustdesk
