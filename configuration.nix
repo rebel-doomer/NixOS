@@ -123,6 +123,7 @@
     cmatrix
     hollywood
     lolcat
+    lsd
     krita
     mousepad
     gitg
