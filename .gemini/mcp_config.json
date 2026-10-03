@@ -5,7 +5,7 @@
       "args": [
         "/home/reb/.vscode-oss/extensions/hurtis.todo-2.0.0-universal/bin/todo-mcp.js",
         "--workspace",
-        "/home/reb/nixos-config"
+        "/home/reb/NixOS"
       ]
     }
   }

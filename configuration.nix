@@ -265,7 +265,7 @@
     playonlinux
     weather
     # redshift already comes with KDE
-    chatgpt
+    # chatgpt package is for mac, yet there exists .deb installers. todo look into how to get chatgpt as a desktop app (flatpak?) 
     # chatgpt-cli
     tgpt # ChatGPT in terminal without needing API keys
   ];
