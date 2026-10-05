@@ -63,6 +63,13 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Bypass the broken status for the ThinkPad fingerprint driver package
+  nixpkgs.config.packageOverrides = pkgs: {
+    libfprint-2-tod1-vfs0090 = pkgs.libfprint-2-tod1-vfs0090.overrideAttrs (old: {
+      meta = old.meta // { broken = false; };
+    });
+  };
+
   # Enable Steam via dedicated module
   programs.steam.enable = true;
 
@@ -334,12 +341,9 @@
     };
   };
 
-  # Enable display server and KDE Plasma cleanly
-  services.xserver = {
-    enable = true;
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
-  };
+  # Enable display server and KDE Plasma cleanly (updated to current option names to prevent evaluation warnings)
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
 
   # Ollama & Local AI
   services.ollama = {
