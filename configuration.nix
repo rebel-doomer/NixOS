@@ -181,7 +181,16 @@
     minecraftia
     rose-pine-cursor
     gzdoom
+    # doom-bcc - NOTE doom compiler, to be used in the future when I start getting into making my own WADs again
+    # doomretro
+    # doomrunner
+    # doomseeker - NOTE to be uncommented later once needed. Multiplayer server browser for many Doom source ports
     freedoom
+    # slade - NOTE Doom editor, to be used in the future
+    chocolate-doom # Doom source port that accurately reproduces the experience of Doom as it was played in the 1990s
+    crispy-doom # Limit-removing enhanced-resolution Doom source port based on Chocolate Doom
+    # enyo-launcher - Frontend for Doom engines
+    # zandronum - Multiplayer oriented port, based off Skulltag, for Doom and Doom II by id Software
     polybarFull
     polybar-pulseaudio-control
     flameshot
@@ -238,8 +247,11 @@
     ruffle
     lutris
     mame
-    dsda-doom
+    dsda-doom # Advanced Doom source port with a focus on speedrunning, successor of PrBoom+
     dsda-launcher
+    # uzdoom - Modder-friendly OpenGL and Vulkan source port based on the DOOM engine
+    # ultimate-doom-builder - Advanced Doom map editor based on Doom Builder 2 with Mono support
+    eureka-editor # - PEAK Map editor for the classic DOOM games (and a few related games such as Heretic and Hexen!)
     dosbox
     drawpile
     viewnior
