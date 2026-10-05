@@ -64,11 +64,11 @@
   nixpkgs.config.allowUnfree = true;
 
   # Bypass the broken status for the ThinkPad fingerprint driver package
-  nixpkgs.config.packageOverrides = pkgs: {
-    libfprint-2-tod1-vfs0090 = pkgs.libfprint-2-tod1-vfs0090.overrideAttrs (old: {
-      meta = old.meta // { broken = false; };
-    });
-  };
+  # nixpkgs.config.packageOverrides = pkgs: {
+  #   libfprint-2-tod1-vfs0090 = pkgs.libfprint-2-tod1-vfs0090.overrideAttrs (old: {
+  #     meta = old.meta // { broken = false; };
+  #   });
+  # };
 
   # Enable Steam via dedicated module
   programs.steam.enable = true;
@@ -314,9 +314,9 @@
   ];
 
   # List services that units want to enable:
-  services.fprintd.enable = true;
-  services.fprintd.tod.enable = true;
-  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090;
+  # services.fprintd.enable = true;
+  # services.fprintd.tod.enable = true;
+  # services.fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090;
 
   services.openssh.enable = true;
   networking.firewall.enable = true;
