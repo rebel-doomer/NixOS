@@ -83,6 +83,8 @@
     ubuntu-classic
     hack-font
     font-awesome
+    noto-fonts
+    liberation_ttf
   ];
 
   xdg = {
@@ -148,20 +150,31 @@
     renpy
     godot_4-mono        # <-- Swapped from godot_4_7 to enable C#/Mono support out-of-the-box
     thonny
+    fortran-fpm
+    fortran-language-server
+    lolcode
+    go
     vscodium
+    javascript-typescript-langserver
     arduino-ide
     arduino-cli
     telegram-desktop
     discord
     vesktop
     alacritty
-    lua
+    gcc
+    dracula-qt5-theme
     dracula-theme
     dracula-icon-theme
     tmux
+    tmuxp
+    tmuxai
     tmuxPlugins.dracula
     sl
     catfish
+    cowsay
+    neo-cowsay
+    ponysay
     xfce4-terminal
     mysql-workbench
     prismlauncher
@@ -180,6 +193,17 @@
     gimp
     lazygit
     lua5
+    # lua - NOTE idk the difference from just getting lua5 package, need to research later
+    zx # Tool for writing scripts using JavaScript
+    mujs # Lightweight, embeddable Javascript interpreter
+    nodejs # Event-driven I/O framework for the V8 JavaScript engine. XXX CAREFUL, DO NOT BLINDLY USE npm. 
+    # alternative npm options:
+    # nodejs_latest
+    # nodejs-slim
+    nodejsInstallManuals
+    # nodejsInstallExecutables
+    # noweb - Simple, extensible literate-programming tool
+    # nodenv - Manage multiple NodeJS versions
     spotify
     spotifyd
     spotifycli
@@ -188,7 +212,7 @@
     dotnet-sdk_11
     dmenu
     windowmaker
-    i3
+    # i3 - switch to sway if have to
     jwm
     xfwm4
     icewm
@@ -271,6 +295,10 @@
   ];
 
   # List services that units want to enable:
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090;
+
   services.openssh.enable = true;
   networking.firewall.enable = true;
 
