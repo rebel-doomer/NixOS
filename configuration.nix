@@ -281,6 +281,8 @@
     tor
     tor-browser
     # cisco-packet-tracer_9
+    # openconnect - VPN Client for Cisco's AnyConnect SSL VPN
+    # john - John the Ripper password cracker
     transmission_4-gtk
     transmission-remote-gtk
     wireshark
@@ -299,6 +301,7 @@
     jellyfin-desktop
     pulseaudioFull
     qmmp
+    terminalmap # Tool to render real world maps in your terminal
     obsidian
     diskscan
     disktui
