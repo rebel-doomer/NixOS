@@ -56,7 +56,7 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "Reb";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ]; # To open virt-manager without typing sudo every single time, user must belong to the libvirtd group.
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ]; # Added docker group here
     packages = with pkgs; [];
   };
 
@@ -76,6 +76,7 @@
   # Enable KVM / QEMU virtualization and Virt-Manager GUI
   programs.virt-manager.enable = true;
   virtualisation = {
+    docker.enable = true; # Enabled native Linux Docker daemon
     libvirtd = {
       enable = true;
       onBoot = "ignore"; # Prevents the systemd emergency mode boot crash loop
