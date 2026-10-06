@@ -280,10 +280,11 @@
     teamviewer
     tor
     tor-browser
+    # cisco-packet-tracer_9
     transmission_4-gtk
     transmission-remote-gtk
     wireshark
-    wireshark-cli
+    # wireshark-cli
     tshark
     termshark
     hydra
