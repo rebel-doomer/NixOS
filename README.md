@@ -21,8 +21,7 @@ You can set an alias for this in the fish config like alias os-rebuild="sudo nix
 ```
 sudo nixos-rebuild switch -I nixos-config=/home/reb/nixos-config/configuration.nix
 ```
-
-github stuff to backup nix configs
+Github stuff to backup nix configs
 ```
 cd ~/nixos-config
 git status
@@ -30,6 +29,10 @@ git branch -M main
 git add -A
 git commit -m "Updated NixOS configuration with services, AI, and Home Manager"
 gh repo create nixos-config --public --source=. --remote=origin --push || git push -u origin main
+```
+Run garbage collection
+```
+sudo nix-collect-garbage -d
 ```
 Delete previous Nix generations
 ```

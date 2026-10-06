@@ -144,6 +144,9 @@
     alpaca
     bleachbit
     conky
+    php # HTML-embedded scripting language
+    nginx # Reverse proxy and lightweight webserver
+    # angie - an efficient, powerful, and scalable web server that was forked from nginx
     jetbrains.rider
     jetbrains.clion
     jetbrains.pycharm
