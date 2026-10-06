@@ -31,7 +31,10 @@ git add -A
 git commit -m "Updated NixOS configuration with services, AI, and Home Manager"
 gh repo create nixos-config --public --source=. --remote=origin --push || git push -u origin main
 ```
-
+Delete previous Nix generations
+```
+sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations +2
+```
 ## OBSOLETE, IGNORE THIS SECTION!!
 Auto-sync script (cuz I prefer auto-copying to /etc/nixos)
 If you want configuration.nix to always be copied over to /etc/nixos automatically whenever you rebuild, create a small script or function:

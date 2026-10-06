@@ -184,7 +184,7 @@
     neo-cowsay
     ponysay
     xfce4-terminal
-    mysql-workbench   # <-- Back in packages
+    mysql-workbench  
     prismlauncher
     minecraftia
     rose-pine-cursor
