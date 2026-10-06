@@ -159,7 +159,7 @@
     mariadb
     python3
     renpy
-    godot_4-mono        # <-- Swapped from godot_4_7 to enable C#/Mono support out-of-the-box
+    godot_4-mono # Swapped from godot_4_7 to enable C#/Mono support out-of-the-box
     thonny
     fortran-fpm
     fortran-language-server
@@ -191,6 +191,9 @@
     prismlauncher
     minecraftia
     rose-pine-cursor
+    # gamehub - Unified library for all your games
+    # gamemode - Optimise Linux system performance on demand
+    # sameboy - Game Boy, Game Boy Color, and Super Game Boy emulator
     gzdoom
     # doom-bcc - NOTE doom compiler, to be used in the future when I start getting into making my own WADs again
     # doomretro
@@ -249,13 +252,16 @@
     pomodoro
     translatelocally
     nano
+    # foot - Fast, lightweight and minimalistic Wayland terminal emulator
+    dolphin-emu
     pcsx2
-    ppsspp
+    # ppsspp
+    ppsspp-qt
     retroarch-full
     aseprite
     popsicle
     supertuxkart
-    ruffle
+    ruffle # for Flash game emulation purposes, f Adobe btw
     lutris
     mame
     dsda-doom # Advanced Doom source port with a focus on speedrunning, successor of PrBoom+
@@ -303,13 +309,14 @@
     terminator
     enlightenment.terminology
     virtualbox
-    virtualboxHeadless
+    # virtualboxHeadless
     updatecli
     zip
     kdePackages.ark
     kdePackages.filelight
     picom
     playonlinux
+    mupen64plus
     weather
     # redshift already comes with KDE
     # chatgpt package is for mac, yet there exists .deb installers. todo look into how to get chatgpt as a desktop app (flatpak?) 
