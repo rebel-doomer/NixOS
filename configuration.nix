@@ -21,11 +21,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -57,38 +52,20 @@
   # Configure console keymap
   console.keyMap = "us";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account.
   users.users."reb" = {
     shell = pkgs.fish;
     isNormalUser = true;
     description = "Reb";
-    extraGroups = [ "networkmanager" "wheel" ]; # Removed "libvirtd" and "docker"
+    extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Bypass the broken status for the ThinkPad fingerprint driver package
-  # nixpkgs.config.packageOverrides = pkgs: {
-  #   libfprint-2-tod1-vfs0090 = pkgs.libfprint-2-tod1-vfs0090.overrideAttrs (old: {
-  #     meta = old.meta // { broken = false; };
-  #   });
-  # };
-
   # Enable Steam via dedicated module
   programs.steam.enable = true;
-
-  # Enable KVM / QEMU virtualization and Virt-Manager GUI (DISABLED)
-  # programs.virt-manager.enable = true;
-  # virtualisation = {
-  #   docker.enable = true; # Enabled native Linux Docker daemon
-  #   libvirtd = {
-  #     enable = false;
-  #     onBoot = "ignore"; # Prevents the systemd emergency mode boot crash loop
-  #   };
-  #   spiceUSBRedirection.enable = true;
-  # };
 
   # System fonts configuration
   fonts.packages = with pkgs; [
@@ -109,6 +86,96 @@
     XCURSOR_THEME = "BreezeX-RoséPine";
     XCURSOR_SIZE = "24";
   };
+
+  # Declaratively generate the Conky configuration file at /etc/conky/conky.conf
+  environment.etc."conky/conky.conf".text = ''
+    conky.config = {
+        use_xft = true,
+        font = 'DejaVu Sans Mono:size=10',
+        xftalpha = 1,
+        update_interval = 1,
+        total_run_times = 0,
+        own_window = true,
+        own_window_type = 'desktop',
+        own_window_transparent = true,
+        own_window_argb_visual = true,
+        own_window_argb_value = 50,
+        own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+        double_buffer = true,
+        minimum_width = 300,
+        minimum_height = 600,
+        maximum_width = 300,
+        draw_shades = false,
+        draw_outline = false,
+        draw_borders = false,
+        draw_graph_borders = false,
+        default_color = 'white',
+        alignment = 'bottom_left',
+        gap_x = 100,
+        gap_y = 30,
+        no_buffers = true,
+        uppercase = false,
+        cpu_avg_samples = 2,
+        override_utf8_locale = true,
+        color1 = '#FFFFFF',
+        color2 = '#FFA500',
+    };
+
+    conky.text = [[
+    $${color2}$$
+{font Ubuntu:bold:size=10}SYSTEM $${hr 2}$${font}
+    $${color1}Distribution:$$
+{execi 3600 lsb_release -ds}
+    $${color1}Kernel:$$
+kernel
+    $${color1}Hostname:$$
+nodename
+    $${color1}Uptime:$$
+uptime
+
+    $${color2}$$
+{font Ubuntu:bold:size=10}CPU $${hr 2}$${font}
+    $${color1}CPU1 Usage:$$
+{cpu cpu1}% $${cpubar cpu1}$${color1}CPU2 Usage: $${cpu cpu2}\%$${cpubar cpu2}
+    $${color1}CPU3 Usage:$$
+{cpu cpu3}% $${cpubar cpu3}$${color1}CPU4 Usage: $${cpu cpu4}\%$${cpubar cpu4}
+    $${color1}CPU Graph:$$
+{cpugraph 50,140}
+
+    $${color2}$$
+{font Ubuntu:bold:size=10}MEMORY $${hr 2}$${font}
+    $${color1}RAM Usage:$$
+{mem} of $${memmax} ($${memperc}%)
+    $${color1}RAM Bar:$$
+{membar}
+    $${color1}Free RAM:$$
+memeasyfree
+
+    $${color2}$$
+{font Ubuntu:bold:size=10}STORAGE $${hr 2}$${font}
+    $${color1}Root:$$
+{fs_used /} of $${fs_size /}$${color1}Usage: $${fs_used_perc /}\%$${fs_bar 6,140 /}
+
+    $${color2}$$
+{font Ubuntu:bold:size=10}UPDATES $${hr 2}$${font}
+    $${color1}Packages to Update:$$
+{execi 3600 apt list --upgradeable 2>/dev/null | grep -cv 'Listing...'}
+
+    $${color2}$$
+{font Ubuntu:bold:size=10}TOP CPU PROCESSES $${hr 2}$${font}
+    $${color1}CPU:$$
+{top name 1} $${top cpu 1}\%$${color1}CPU: $${top name 2}$${top cpu 2}%
+    $${color1}CPU:$$
+{top name 3} $${top cpu 3}\%      $${color2}$${font Ubuntu:bold:size=10}TOP RAM PROCESSES$${hr 2}$${font}$${color1}RAM: $${top_mem name 1}$${top_mem mem 1}%
+    $${color1}RAM:$$
+{top_mem name 2} $${top_mem mem 2}\%$${color1}RAM: $${top_mem name 3}$${top_mem mem 3}%
+
+    $${color2}$$
+{font Ubuntu:bold:size=10}BATTERIES $${hr 2}$${font}
+    $${color1}Battery 1:$$
+{battery_percent BAT0}% $${battery_bar BAT0}$${color1}Battery 2: $${battery_percent BAT1}\%$${battery_bar BAT1}
+    ]];
+  '';
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
@@ -133,7 +200,7 @@
     honeyfetch
     ipfetch
     gitfetch
-    ghfetch # github fetch
+    ghfetch
     zigfetch
     fastfetch
     cmatrix
@@ -150,9 +217,8 @@
     alpaca
     bleachbit
     conky
-    php # HTML-embedded scripting language
-    nginx # Reverse proxy and lightweight webserver
-    # angie - an efficient, powerful, and scalable web server that was forked from nginx
+    php
+    nginx
     jetbrains.rider
     jetbrains.clion
     jetbrains.pycharm
@@ -160,12 +226,11 @@
     jetbrains.datagrip
     jetbrains.dataspell
     jetbrains.phpstorm
-    # jetbrains-toolbox - this kept having issues when i switched from t490 back to t460
     kdePackages.kate
     mariadb
     python3
     renpy
-    godot_4-mono # Swapped from godot_4_7 to enable C#/Mono support out-of-the-box
+    godot_4-mono
     thonny
     fortran-fpm
     fortran-language-server
@@ -197,20 +262,10 @@
     prismlauncher
     minecraftia
     rose-pine-cursor
-    # gamehub - Unified library for all your games
-    # gamemode - Optimise Linux system performance on demand
-    # sameboy - Game Boy, Game Boy Color, and Super Game Boy emulator
     gzdoom
-    # doom-bcc - NOTE doom compiler, to be used in the future when I start getting into making my own WADs again
-    # doomretro
-    # doomrunner
-    # doomseeker - NOTE to be uncommented later once needed. Multiplayer server browser for many Doom source ports
     freedoom
-    # slade - NOTE Doom editor, to be used in the future
-    chocolate-doom # Doom source port that accurately reproduces the experience of Doom as it was played in the 1990s
-    crispy-doom # Limit-removing enhanced-resolution Doom source port based on Chocolate Doom
-    # enyo-launcher - Frontend for Doom engines
-    # zandronum - Multiplayer oriented port, based off Skulltag, for Doom and Doom II by id Software
+    chocolate-doom
+    crispy-doom
     polybarFull
     polybar-pulseaudio-control
     flameshot
@@ -222,17 +277,10 @@
     gimp
     lazygit
     lua5
-    # lua - NOTE idk the difference from just getting lua5 package, need to research later
-    zx # Tool for writing scripts using JavaScript
-    mujs # Lightweight, embeddable Javascript interpreter
-    nodejs # Event-driven I/O framework for the V8 JavaScript engine. XXX CAREFUL, DO NOT BLINDLY USE npm. 
-    # alternative npm options:
-    # nodejs_latest
-    # nodejs-slim
+    zx
+    mujs
+    nodejs
     nodejsInstallManuals
-    # nodejsInstallExecutables
-    # noweb - Simple, extensible literate-programming tool
-    # nodenv - Manage multiple NodeJS versions
     spotify
     spotifyd
     spotifycli
@@ -241,40 +289,28 @@
     dotnet-sdk_11
     dmenu
     windowmaker
-    # i3 - switch to sway if have to
     jwm
     xfwm4
     icewm
     awesome
-    # docker
-    # docker-client
-    # qemu_full
-    # qemu_kvm
-    # qemu-utils
-    # qemu-user
-    # qemu-python-utils
     dbeaver-bin
     teams-for-linux
     pomodoro
     translatelocally
     nano
-    # foot - Fast, lightweight and minimalistic Wayland terminal emulator
     dolphin-emu
     pcsx2
-    # ppsspp
     ppsspp-qt
     retroarch-full
     aseprite
     popsicle
     supertuxkart
-    ruffle # for Flash game emulation purposes, f Adobe btw
+    ruffle
     lutris
     mame
-    dsda-doom # Advanced Doom source port with a focus on speedrunning, successor of PrBoom+
+    dsda-doom
     dsda-launcher
-    # uzdoom - Modder-friendly OpenGL and Vulkan source port based on the DOOM engine
-    # ultimate-doom-builder - Advanced Doom map editor based on Doom Builder 2 with Mono support
-    eureka-editor # - PEAK Map editor for the classic DOOM games (and a few related games such as Heretic and Hexen!)
+    eureka-editor
     dosbox
     drawpile
     viewnior
@@ -286,13 +322,9 @@
     teamviewer
     tor
     tor-browser
-    # cisco-packet-tracer_9
-    # openconnect - VPN Client for Cisco's AnyConnect SSL VPN
-    # john - John the Ripper password cracker
     transmission_4-gtk
     transmission-remote-gtk
     wireshark
-    # wireshark-cli
     tshark
     termshark
     hydra
@@ -307,7 +339,7 @@
     jellyfin-desktop
     pulseaudioFull
     qmmp
-    terminalmap # Tool to render real world maps in your terminal
+    terminalmap
     obsidian
     diskscan
     disktui
@@ -318,8 +350,6 @@
     cutecom
     terminator
     enlightenment.terminology
-    # virtualbox
-    # virtualboxHeadless
     updatecli
     zip
     kdePackages.ark
@@ -328,16 +358,8 @@
     playonlinux
     mupen64plus
     weather
-    # redshift already comes with KDE
-    # chatgpt package is for mac, yet there exists .deb installers. todo look into how to get chatgpt as a desktop app (flatpak?) 
-    # chatgpt-cli
-    tgpt # ChatGPT in terminal without needing API keys
+    tgpt
   ];
-
-  # List services that units want to enable:
-  # services.fprintd.enable = true;
-  # services.fprintd.tod.enable = true;
-  # services.fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090;
 
   services.openssh.enable = true;
   networking.firewall.enable = true;
@@ -362,7 +384,7 @@
     };
   };
 
-  # Enable display server and KDE Plasma cleanly (updated to current option names to prevent evaluation warnings)
+  # Enable display server and KDE Plasma cleanly
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
 
@@ -391,9 +413,7 @@
 
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true; # powers on bluetooth at boot
-
-  # Optional: If you want the graphical Bluetooth manager applet in KDE tray
+  hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
   # Printing & Network Device Discovery
@@ -437,6 +457,8 @@
 
   # Global Session Variables for X11 / GTK
   environment.sessionVariables = {
+    XCURSOR_THEME = "BreezeX-RoséPine";
+    XCURSOR_SIZE = "24";
     GTK_CSD = "0";
     GDK_SCALE = "1";
   };
