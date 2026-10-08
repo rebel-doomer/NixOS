@@ -62,7 +62,7 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "Reb";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ]; # Added docker group here
+    extraGroups = [ "networkmanager" "wheel" ]; # Removed "libvirtd" and "docker"
     packages = with pkgs; [];
   };
 
@@ -79,16 +79,16 @@
   # Enable Steam via dedicated module
   programs.steam.enable = true;
 
-  # Enable KVM / QEMU virtualization and Virt-Manager GUI
-  programs.virt-manager.enable = true;
-  virtualisation = {
-    docker.enable = true; # Enabled native Linux Docker daemon
-    libvirtd = {
-      enable = true;
-      onBoot = "ignore"; # Prevents the systemd emergency mode boot crash loop
-    };
-    spiceUSBRedirection.enable = true;
-  };
+  # Enable KVM / QEMU virtualization and Virt-Manager GUI (DISABLED)
+  # programs.virt-manager.enable = true;
+  # virtualisation = {
+  #   docker.enable = true; # Enabled native Linux Docker daemon
+  #   libvirtd = {
+  #     enable = false;
+  #     onBoot = "ignore"; # Prevents the systemd emergency mode boot crash loop
+  #   };
+  #   spiceUSBRedirection.enable = true;
+  # };
 
   # System fonts configuration
   fonts.packages = with pkgs; [
@@ -246,13 +246,13 @@
     xfwm4
     icewm
     awesome
-    docker
-    docker-client
-    qemu_full
-    qemu_kvm
-    qemu-utils
-    qemu-user
-    qemu-python-utils
+    # docker
+    # docker-client
+    # qemu_full
+    # qemu_kvm
+    # qemu-utils
+    # qemu-user
+    # qemu-python-utils
     dbeaver-bin
     teams-for-linux
     pomodoro
@@ -318,7 +318,7 @@
     cutecom
     terminator
     enlightenment.terminology
-    virtualbox
+    # virtualbox
     # virtualboxHeadless
     updatecli
     zip
