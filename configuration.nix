@@ -10,6 +10,12 @@
       ./hardware-configuration.nix
     ];
 
+  # Explicitly set NIX_PATH so nixos-rebuild automatically reads from your git repository
+  nix.nixPath = [
+    "nixos-config=/home/reb/NixOS/configuration.nix"
+    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+  ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -154,7 +160,7 @@
     jetbrains.datagrip
     jetbrains.dataspell
     jetbrains.phpstorm
-    jetbrains-toolbox
+    # jetbrains-toolbox - this kept having issues when i switched from t490 back to t460
     kdePackages.kate
     mariadb
     python3
