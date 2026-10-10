@@ -89,7 +89,7 @@
 
   # Declaratively generate the Conky configuration file at /etc/conky/conky.conf
   environment.etc."conky/conky.conf".text = ''
-conky.config = {
+    conky.config = {
         use_xft = true,
         font = 'DejaVu Sans Mono:size=10',
         xftalpha = 1,
@@ -122,107 +122,41 @@ conky.config = {
     };
 
     conky.text = [[
-    $${color2}$${font Ubuntu:bold:size=10}SYSTEM $${hr 2}$${font}
-    $${color1}Distribution:$PARAMETERS
-    $${execi 3600 lsb_release -ds}
-    $${color1}Kernel:$PARAMETERS
-    $${kernel}
-    $${color1}Hostname:$PARAMETERS
-    $${nodename}
-    $${color1}Uptime:$PARAMETERS
-    $${uptime}
-
-    $${color2}$${font Ubuntu:bold:size=10}CPU $${hr 2}$${font}
-    $${color1}CPU1 Usage:$PARAMETERS
-    $${cpu cpu1}% $${cpubar cpu1}$${color1}CPU2 Usage: $${cpu cpu2}\%$${cpubar cpu2}
-    $${color1}CPU3 Usage:$PARAMETERS
-    $${cpu cpu3}% $${cpubar cpu3}$${color1}CPU4 Usage: $${cpu cpu4}\%$${cpubar cpu4}
-    $${color1}CPU Graph:$PARAMETERS
-    $${cpugraph 50,140}
-
-    $${color2}$${font Ubuntu:bold:size=10}MEMORY $${hr 2}$${font}
-    $${color1}RAM Usage:$PARAMETERS
-    $${mem} of $${memmax} ($${memperc}%)
-    $${color1}RAM Bar:$PARAMETERS
-    $${membar}
-    $${color1}Free RAM:$PARAMETERS
-    $${memeasyfree}
-
-    $${color2}$${font Ubuntu:bold:size=10}STORAGE $${hr 2}$${font}
-    $${color1}Root:$PARAMETERS
-    $${fs_used /} of $${fs_size /}$${color1}Usage: $${fs_used_perc /}\%$${fs_bar 6,140 /}
-
-    $${color2}$${font Ubuntu:bold:size=10}UPDATES $${hr 2}$${font}
-    $${color1}Packages to Update:$PARAMETERS
-    $${execi 3600 apt list --upgradeable 2>/dev/null | grep -cv 'Listing...'}
-
-    $${color2}$${font Ubuntu:bold:size=10}TOP CPU PROCESSES $${hr 2}$${font}
-    $${color1}CPU:$PARAMETERS
-    $${top name 1} $${top cpu 1}\%$${color1}CPU: $${top name 2}$${top cpu 2}%
-    $${color1}CPU:$PARAMETERS
-    $${top name 3} $${top cpu 3}\%      $${color2}$${font Ubuntu:bold:size=10}TOP RAM PROCESSES$${hr 2}$${font}$${color1}RAM: $${top_mem name 1}$${top_mem mem 1}%
-    $${color1}RAM:$PARAMETERS
-    $${top_mem name 2} $${top_mem mem 2}\%$${color1}RAM: $${top_mem name 3}$${top_mem mem 3}%
-
-    $${color2}$${font Ubuntu:bold:size=10}BATTERIES $${hr 2}$${font}
-    $${color1}Battery 1:$PARAMETERS
-    $${battery_percent BAT0}% $${battery_bar BAT0}$${color1}Battery 2: $${battery_percent BAT1}\%$${battery_bar BAT1}
-    ]];
-  '';
-
-    conky.text = [[
     $${color2}$$
 {font Ubuntu:bold:size=10}SYSTEM $${hr 2}$${font}
     $${color1}Distribution:$$
-{execi 3600 lsb_release -ds}
-    $${color1}Kernel:$$
-kernel
+    $${execi 3600 lsb_release -ds}$$
+{color1}Kernel:$$     $${kernel}
     $${color1}Hostname:$$
-nodename
-    $${color1}Uptime:$$
-uptime
+    $${nodename}$$
+{color1}Uptime:$$     $${uptime}
 
     $${color2}$$
 {font Ubuntu:bold:size=10}CPU $${hr 2}$${font}
     $${color1}CPU1 Usage:$$
-{cpu cpu1}% $${cpubar cpu1}$${color1}CPU2 Usage: $${cpu cpu2}\%$${cpubar cpu2}
-    $${color1}CPU3 Usage:$$
-{cpu cpu3}% $${cpubar cpu3}$${color1}CPU4 Usage: $${cpu cpu4}\%$${cpubar cpu4}
+    $${cpu cpu1}\%$$
+{cpubar cpu1}$${color1}CPU2 Usage:$${cpu cpu2}\%$${cpubar cpu2}$${color1}CPU3 Usage:$$     $${cpu cpu3}% $${cpubar cpu3}$${color1}CPU4 Usage: $${cpu cpu4}\%$${cpubar cpu4}
     $${color1}CPU Graph:$$
-{cpugraph 50,140}
-
-    $${color2}$$
-{font Ubuntu:bold:size=10}MEMORY $${hr 2}$${font}
-    $${color1}RAM Usage:$$
-{mem} of $${memmax} ($${memperc}%)
+    $${cpugraph 50,140}      $$
+{color2}$${font Ubuntu:bold:size=10}MEMORY$${hr 2}$${font}$${color1}RAM Usage:$$     $${mem} of $${memmax} ($${memperc}%)
     $${color1}RAM Bar:$$
-{membar}
-    $${color1}Free RAM:$$
-memeasyfree
+    $${membar}$$
+{color1}Free RAM:$$     $${memeasyfree}
 
     $${color2}$$
 {font Ubuntu:bold:size=10}STORAGE $${hr 2}$${font}
     $${color1}Root:$$
-{fs_used /} of $${fs_size /}$${color1}Usage: $${fs_used_perc /}\%$${fs_bar 6,140 /}
-
-    $${color2}$$
-{font Ubuntu:bold:size=10}UPDATES $${hr 2}$${font}
-    $${color1}Packages to Update:$$
-{execi 3600 apt list --upgradeable 2>/dev/null | grep -cv 'Listing...'}
+    $${fs_used /} of$$
+{fs_size /}$${color1}Usage:$${fs_used_perc /}\%$${fs_bar 6,140 /}      $${color2}$${font Ubuntu:bold:size=10}UPDATES$${hr 2}$${font}$${color1}Packages to Update:$$     $${execi 3600 apt list --upgradeable 2>/dev/null | grep -cv 'Listing...'}
 
     $${color2}$$
 {font Ubuntu:bold:size=10}TOP CPU PROCESSES $${hr 2}$${font}
     $${color1}CPU:$$
-{top name 1} $${top cpu 1}\%$${color1}CPU: $${top name 2}$${top cpu 2}%
-    $${color1}CPU:$$
-{top name 3} $${top cpu 3}\%      $${color2}$${font Ubuntu:bold:size=10}TOP RAM PROCESSES$${hr 2}$${font}$${color1}RAM: $${top_mem name 1}$${top_mem mem 1}%
+    $${top name 1}$$
+{top cpu 1}\%$${color1}CPU:$${top name 2}$${top cpu 2}\%$${color1}CPU:$$     $${top name 3} $${top cpu 3}\%$${color2}$${font Ubuntu:bold:size=10}TOP RAM PROCESSES$${hr 2}$${font}$${color1}RAM: $${top_mem name 1}$${top_mem mem 1}%
     $${color1}RAM:$$
-{top_mem name 2} $${top_mem mem 2}\%$${color1}RAM: $${top_mem name 3}$${top_mem mem 3}%
-
-    $${color2}$$
-{font Ubuntu:bold:size=10}BATTERIES $${hr 2}$${font}
-    $${color1}Battery 1:$$
-{battery_percent BAT0}% $${battery_bar BAT0}$${color1}Battery 2: $${battery_percent BAT1}\%$${battery_bar BAT1}
+    $${top_mem name 2}$$
+{top_mem mem 2}\%$${color1}RAM:$${top_mem name 3}$${top_mem mem 3}\%      $${color2}$${font Ubuntu:bold:size=10}BATTERIES$${hr 2}$${font}$${color1}Battery 1:$$     $${battery_percent BAT0}% $${battery_bar BAT0}$${color1}Battery 2: $${battery_percent BAT1}\%$${battery_bar BAT1}
     ]];
   '';
 
@@ -494,8 +428,19 @@ memeasyfree
     binfmt = true;
   };
 
-  # Shell (fish setup)
+  # Shell (fish setup and aliases)
   programs.fish.enable = true;
+  programs.fish.interactiveShellInit = ''
+    if status is-interactive
+        # Commands to run in interactive sessions can go here
+    end
+
+    # Rebuild system using your local repo configuration
+    alias build-nix "sudo nixos-rebuild switch -I nixos-config=/home/reb/NixOS/configuration.nix"
+
+    # Upgrade system packages and rebuild using your local repo configuration
+    alias update-nix "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/reb/NixOS/configuration.nix"
+  '';
 
   # Security & System Performance
   security.rtkit.enable = true;
