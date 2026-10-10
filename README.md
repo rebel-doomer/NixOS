@@ -10,14 +10,12 @@ update-nix
 ```
 
 default out-of-the-box nix commands before fish configuration was made:
-
 ```
 sudo nix-channel --update
 sudo nixos-rebuild switch
-
 ```
 
-You can set an alias for this in the fish config like alias os-rebuild="sudo nixos-rebuild switch -I nixos-config=$HOME/nixos-config/configuration.nix" to make it instant.
+You can set an alias for this in the fish config like `alias os-rebuild="sudo nixos-rebuild switch -I nixos-config=$HOME/nixos-config/configuration.nix"` to make it instant.
 ```
 sudo nixos-rebuild switch -I nixos-config=/home/reb/nixos-config/configuration.nix
 ```
@@ -36,62 +34,22 @@ sudo nix-collect-garbage -d
 ```
 Delete previous Nix generations
 ```
-sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations +2
+sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations +3
 ```
-## OBSOLETE, IGNORE THIS SECTION!!
-Auto-sync script (cuz I prefer auto-copying to /etc/nixos)
-If you want configuration.nix to always be copied over to /etc/nixos automatically whenever you rebuild, create a small script or function:
-
-Add this to your fish config or run it as a command:
+Add this to the fish config or run it as a command:
 ```sudo cp -rf /home/reb/nixos-config/* /etc/nixos/ && sudo nixos-rebuild switch```
 ```
 
-# Roadmap Planning and To-do's
-It is overwhelming to jump straight into a barebones WM, especially with how limited my time is due to school. so for now, an idea i came up with as a temporary solution is to frankenstein ontop of an xfce4 base.
+# Plans and To-do's
+## Thermal Considerations on X1 G10 Thinkpad
+The 14-core chips run hot in the ultra-thin X1 chassis when under sustained 100% load. Having `services.tuned.enable = true` or `services.thermald.enable = true` in the `configuration.nix` helps manage power profiles cleanly under KDE Plasma.
 
-[ ] Setup T490 Fingerprint scanner to work
+[ ] Setup Fingerprint scanner to work (if my new thinkpad has this).
 
 ## Wayland
 Will attempt to use a setup using KDE + Wayland and customize it by removing some KDE basics such as (example) replacing the bar to a more custom one
 
-## XFCE vs. AwesomeWM (OBSOLETE, IGNORE!!)
-- Potentially switching to wayland, may delete this section later!
-
-[ ] replace xfwm4 with a new WM, such as awesome or JWM. must have BOTH tiling plus float options
-[ ] replace xfce4-panel with polybar or tint2
-[ ] keep OR replace thunar with some other very light-weight, but cozy file manager that isn't TOO barebones. maybe get ideas from puppyOS?
-[ ] background daemons - gvfs for USB mountiing, and display settings. keep or replace xfce4-settings
-[ ] have automounting, applets, and wallpaper stuff functioning right
-[ ] xfce4 will handle hardware, USB drives, background daemons. window positioning, tiling, keybindings are handled not by xfce4
-[ ] configure and setup rofi OR dmenu, and d notifs. Disable the XFCE application menu
-[ ] Use XFCE as a "safety net" while configuring AwesomeWM
-[ ] get new DM/login screen. maybe a terminal based one or other minimalist 1980s-1990s looking one
 [ ] get fontawesome and nerd fonts
 [ ] setup grub load screen
 [ ] configure swap, enable hybernate
 [ ] setup apache server some time
-
-## XFCE4 Ideas (OBSOLETE!)
-Optionally, picom can be enabled for nice graphical effects, some example settings:
-```
-{
-  services.picom = {
-    enable = true;
-    fade = true;
-    inactiveOpacity = 0.9;
-    shadow = true;
-    fadeDelta = 4;
-  };
-}
-```
-## Tint2 or Polybar (OBSOLETE POTENTIALLY!)
-### Tin2
-- Tint2 acts like a classic Windows/XFCE panel with a built-in 
-taskbar showing open windows/icons.
-- Handles system tray icons out of the box very well.
-- Comes with a GUI config editor (tint2conf), making it very beginner-friendly without manually editing code (potentially a con? as i need to learn programming thru fun projects such as configuring my own personal customized Linux)
-- Cons: Less seamless integration with dynamic tiling workspaces compared to Polybar.
-- classic panel with clickable window buttons (taskbar style)
-
-### Polybar
-- Polybar is a clean modular bar
