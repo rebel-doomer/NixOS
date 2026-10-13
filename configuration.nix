@@ -20,6 +20,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Declarative 32GB Swap File
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 32768; # 32GB in Megabytes
+    }
+  ];
+
   networking.hostName = "nixos"; # Define your hostname.
 
   # Enable networking
@@ -126,40 +134,67 @@
 {font Ubuntu:bold:size=10}SYSTEM $${hr 2}$${font}
     $${color1}Distribution:$$
     $${execi 3600 lsb_release -ds}$$
-{color1}Kernel:$$     $${kernel}
+{color1}Kernel:$$ $${kernel}
     $${color1}Hostname:$$
     $${nodename}$$
-{color1}Uptime:$$     $${uptime}
+{color1}Uptime:$$ $${uptime}
 
     $${color2}$$
 {font Ubuntu:bold:size=10}CPU $${hr 2}$${font}
     $${color1}CPU1 Usage:$$
     $${cpu cpu1}\%$$
-{cpubar cpu1}$${color1}CPU2 Usage:$${cpu cpu2}\%$${cpubar cpu2}$${color1}CPU3 Usage:$$     $${cpu cpu3}% $${cpubar cpu3}$${color1}CPU4 Usage: $${cpu cpu4}\%$${cpubar cpu4}
+{cpubar cpu1}$${color1}CPU2 Usage:$${cpu cpu2}\%$${cpubar cpu2}$${color1}CPU3 Usage:$$ $${cpu cpu3}% $${cpubar cpu3}$${color1}CPU4 Usage: $${cpu cpu4}\%$${cpubar cpu4}
     $${color1}CPU Graph:$$
     $${cpugraph 50,140}      $$
-{color2}$${font Ubuntu:bold:size=10}MEMORY$${hr 2}$${font}$${color1}RAM Usage:$$     $${mem} of $${memmax} ($${memperc}%)
+{color2}$${font Ubuntu:bold:size=10}MEMORY$${hr 2}$${font}$${color1}RAM Usage:$$ $${mem} of $${memmax} ($${memperc}%)
     $${color1}RAM Bar:$$
     $${membar}$$
-{color1}Free RAM:$$     $${memeasyfree}
+{color1}Free RAM:$$ $${memeasyfree}
 
     $${color2}$$
 {font Ubuntu:bold:size=10}STORAGE $${hr 2}$${font}
     $${color1}Root:$$
     $${fs_used /} of$$
-{fs_size /}$${color1}Usage:$${fs_used_perc /}\%$${fs_bar 6,140 /}      $${color2}$${font Ubuntu:bold:size=10}UPDATES$${hr 2}$${font}$${color1}Packages to Update:$$     $${execi 3600 apt list --upgradeable 2>/dev/null | grep -cv 'Listing...'}
+{fs_size /}$${color1}Usage:$${fs_used_perc /}\%$${fs_bar 6,140 /}      $${color2}$${font Ubuntu:bold:size=10}UPDATES$${hr 2}$${font}$${color1}Packages to Update:$$ $${execi 3600 apt list --upgradeable 2>/dev/null | grep -cv 'Listing...'}
 
     $${color2}$$
 {font Ubuntu:bold:size=10}TOP CPU PROCESSES $${hr 2}$${font}
     $${color1}CPU:$$
     $${top name 1}$$
-{top cpu 1}\%$${color1}CPU:$${top name 2}$${top cpu 2}\%$${color1}CPU:$$     $${top name 3} $${top cpu 3}\%$${color2}$${font Ubuntu:bold:size=10}TOP RAM PROCESSES$${hr 2}$${font}$${color1}RAM: $${top_mem name 1}$${top_mem mem 1}%
+{top cpu 1}\%$${color1}CPU:$${top name 2}$${top cpu 2}\%$${color1}CPU:$$ $${top name 3} $${top cpu 3}\%$${color2}$${font Ubuntu:bold:size=10}TOP RAM PROCESSES$${hr 2}$${font}$${color1}RAM: $${top_mem name 1}$${top_mem mem 1}%
     $${color1}RAM:$$
     $${top_mem name 2}$$
-{top_mem mem 2}\%$${color1}RAM:$${top_mem name 3}$${top_mem mem 3}\%      $${color2}$${font Ubuntu:bold:size=10}BATTERIES$${hr 2}$${font}$${color1}Battery 1:$$     $${battery_percent BAT0}% $${battery_bar BAT0}$${color1}Battery 2: $${battery_percent BAT1}\%$${battery_bar BAT1}
+{top_mem mem 2}\%$${color1}RAM:$${top_mem name 3}$${top_mem mem 3}\%      $${color2}$${font Ubuntu:bold:size=10}BATTERIES$${hr 2}$${font}$${color1}Battery 1:$$ $${battery_percent BAT0}% $${battery_bar BAT0}$${color1}Battery 2: $${battery_percent BAT1}\%$${battery_bar BAT1}
     ]];
   '';
 
+  # Declaratively generate btop configuration with Dracula theme
+  environment.etc."btop/btop.conf".text = ''
+    color_theme = "dracula"
+    theme_background = False
+    update_ms = 2000
+    proc_sorting = "cpu lazy"
+    proc_reversed = False
+    proc_tree = False
+    proc_colors = True
+    proc_gradient = True
+    proc_per_core = False
+    proc_mem_bytes = True
+    proc_cpu_graphs = True
+    check_temp = True
+    temp_scale = "celsius"
+    base_10_kilobytes = False
+    show_cpu_freq = True
+    clock_format = "%H:%M"
+    background_update = True
+    show_battery = True
+    selected_battery = "Auto"
+    log_level = "WARNING"
+  '';
+
+  # Auto-start Conky via user desktop autostart entry
+  services.xserver.desktopManager.plasma6.enable = true; # ensures KDE session
+  
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     vim
@@ -371,6 +406,11 @@
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
 
+  # Auto-start Conky on login
+  services.xserver.displayManager.sessionCommands = ''
+    conky -c /etc/conky/conky.conf &
+  '';
+
   # Ollama & Local AI
   services.ollama = {
     enable = true;
@@ -457,4 +497,3 @@
     GDK_SCALE = "1";
   };
 }
-
