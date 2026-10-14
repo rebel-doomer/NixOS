@@ -34,7 +34,7 @@ sudo nix-collect-garbage -d
 ```
 Delete previous Nix generations
 ```
-sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations +3
+sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations +5
 ```
 Add this to the fish config or run it as a command:
 ```sudo cp -rf /home/reb/nixos-config/* /etc/nixos/ && sudo nixos-rebuild switch```

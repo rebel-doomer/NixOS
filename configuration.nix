@@ -237,13 +237,17 @@
     conky
     php
     nginx
-    jetbrains.rider
-    jetbrains.clion
+    # jetbrains-toolbox - to get dotcover, dotmemory, dottrace, ReSharper/C++/sql, IntelliJ IDEA Ultimate, etc
+    jetbrains.rider # school    
+    jetbrains.webstorm # school
+    jetbrains.phpstorm # school
+    jetbrains.datagrip # school, maybe
+    jetbrains.dataspell # school, maybe
     jetbrains.pycharm
-    jetbrains.webstorm
-    jetbrains.datagrip
-    jetbrains.dataspell
-    jetbrains.phpstorm
+    jetbrains.clion
+    jetbrains.goland
+    jetbrains.ruby-mine
+    jetbrains.rust-rover
     kdePackages.kate
     mariadb
     python3
@@ -306,14 +310,15 @@
     spotify-player
     dotnet-sdk_11
     dmenu
-    windowmaker
-    jwm
-    xfwm4
-    icewm
-    awesome
+    # windowmaker
+    # jwm
+    # xfwm4
+    # icewm
+    # awesome
     dbeaver-bin
     teams-for-linux
-    pomodoro
+    pomodoro-gtk
+    openpomodoro-cli
     translatelocally
     nano
     dolphin-emu
