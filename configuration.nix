@@ -238,16 +238,16 @@
     php
     nginx
     # jetbrains-toolbox - to get dotcover, dotmemory, dottrace, ReSharper/C++/sql, IntelliJ IDEA Ultimate, etc
-    jetbrains.rider # school    
-    jetbrains.webstorm # school
-    jetbrains.phpstorm # school
-    jetbrains.datagrip # school, maybe
-    jetbrains.dataspell # school, maybe
-    jetbrains.pycharm
-    jetbrains.clion
-    jetbrains.goland
-    jetbrains.ruby-mine
-    jetbrains.rust-rover
+    jetbrains.rider # school 2026
+    jetbrains.webstorm # school 2026
+    jetbrains.phpstorm # school TBA
+    jetbrains.datagrip # school TBA
+    jetbrains.dataspell # school, jupyter/python, TBA (maybe during H3)
+    jetbrains.pycharm # school TBA (maybe during H3)
+    jetbrains.clion # school TBA (maybe in H5)
+    jetbrains.goland # personal use only
+    jetbrains.ruby-mine # likely personal use only, unlikely for school to require
+    jetbrains.rust-rover # personal use only, extremely unlikely for school
     kdePackages.kate
     mariadb
     python3
@@ -407,6 +407,9 @@
     };
   };
 
+  # virtualization/docker
+  virtualisation.docker.enable = true;
+
   # Enable display server and KDE Plasma cleanly
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
@@ -442,7 +445,7 @@
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
+  services.blueman.enable = true; # FIXME 
 
   # Printing & Network Device Discovery
   services.ipp-usb.enable = true;
