@@ -16,9 +16,22 @@
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  # Bootloader setup: Switch to GRUB and keep 10 generations
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.grub = {
+    enable = true;
+    device = "nodev";
+    efiSupport = true;
+    configurationLimit = 10;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Automatic Garbage Collection & Generation Management
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
 
   # Declarative 32GB Swap File
   swapDevices = [
@@ -65,7 +78,7 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "Reb";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
   };
 
@@ -145,7 +158,7 @@
     $${cpu cpu1}\%$$
 {cpubar cpu1}$${color1}CPU2 Usage:$${cpu cpu2}\%$${cpubar cpu2}$${color1}CPU3 Usage:$$ $${cpu cpu3}% $${cpubar cpu3}$${color1}CPU4 Usage: $${cpu cpu4}\%$${cpubar cpu4}
     $${color1}CPU Graph:$$
-    $${cpugraph 50,140}      $$
+    $${cpugraph 50,140}$$
 {color2}$${font Ubuntu:bold:size=10}MEMORY$${hr 2}$${font}$${color1}RAM Usage:$$ $${mem} of $${memmax} ($${memperc}%)
     $${color1}RAM Bar:$$
     $${membar}$$
@@ -155,7 +168,7 @@
 {font Ubuntu:bold:size=10}STORAGE $${hr 2}$${font}
     $${color1}Root:$$
     $${fs_used /} of$$
-{fs_size /}$${color1}Usage:$${fs_used_perc /}\%$${fs_bar 6,140 /}      $${color2}$${font Ubuntu:bold:size=10}UPDATES$${hr 2}$${font}$${color1}Packages to Update:$$ $${execi 3600 apt list --upgradeable 2>/dev/null | grep -cv 'Listing...'}
+{fs_size /}$${color1}Usage:$${fs_used_perc /}\%$${fs_bar 6,140 /}$${color2}$${font Ubuntu:bold:size=10}UPDATES$${hr 2}$${font}$${color1}Packages to Update:$$ $${execi 3600 apt list --upgradeable 2>/dev/null | grep -cv 'Listing...'}
 
     $${color2}$$
 {font Ubuntu:bold:size=10}TOP CPU PROCESSES $${hr 2}$${font}
@@ -164,7 +177,7 @@
 {top cpu 1}\%$${color1}CPU:$${top name 2}$${top cpu 2}\%$${color1}CPU:$$ $${top name 3} $${top cpu 3}\%$${color2}$${font Ubuntu:bold:size=10}TOP RAM PROCESSES$${hr 2}$${font}$${color1}RAM: $${top_mem name 1}$${top_mem mem 1}%
     $${color1}RAM:$$
     $${top_mem name 2}$$
-{top_mem mem 2}\%$${color1}RAM:$${top_mem name 3}$${top_mem mem 3}\%      $${color2}$${font Ubuntu:bold:size=10}BATTERIES$${hr 2}$${font}$${color1}Battery 1:$$ $${battery_percent BAT0}% $${battery_bar BAT0}$${color1}Battery 2: $${battery_percent BAT1}\%$${battery_bar BAT1}
+{top_mem mem 2}\%$${color1}RAM:$${top_mem name 3}$${top_mem mem 3}\%$${color2}$${font Ubuntu:bold:size=10}BATTERIES$${hr 2}$${font}$${color1}Battery 1:$$ $${battery_percent BAT0}% $${battery_bar BAT0}$${color1}Battery 2: $${battery_percent BAT1}\%$${battery_bar BAT1}
     ]];
   '';
 
@@ -237,17 +250,16 @@
     conky
     php
     nginx
-    # jetbrains-toolbox - to get dotcover, dotmemory, dottrace, ReSharper/C++/sql, IntelliJ IDEA Ultimate, etc
-    jetbrains.rider # school 2026
-    jetbrains.webstorm # school 2026
-    jetbrains.phpstorm # school TBA
-    jetbrains.datagrip # school TBA
-    jetbrains.dataspell # school, jupyter/python, TBA (maybe during H3)
-    jetbrains.pycharm # school TBA (maybe during H3)
-    jetbrains.clion # school TBA (maybe in H5)
-    jetbrains.goland # personal use only
-    jetbrains.ruby-mine # likely personal use only, unlikely for school to require
-    jetbrains.rust-rover # personal use only, extremely unlikely for school
+    jetbrains.rider
+    jetbrains.webstorm
+    jetbrains.phpstorm
+    jetbrains.datagrip
+    jetbrains.dataspell
+    jetbrains.pycharm
+    jetbrains.clion
+    jetbrains.goland
+    jetbrains.ruby-mine
+    jetbrains.rust-rover
     kdePackages.kate
     mariadb
     python3
@@ -310,11 +322,6 @@
     spotify-player
     dotnet-sdk_11
     dmenu
-    # windowmaker
-    # jwm
-    # xfwm4
-    # icewm
-    # awesome
     dbeaver-bin
     teams-for-linux
     pomodoro-gtk
@@ -445,7 +452,7 @@
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true; # FIXME 
+  services.blueman.enable = true;
 
   # Printing & Network Device Discovery
   services.ipp-usb.enable = true;
