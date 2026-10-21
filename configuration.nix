@@ -262,6 +262,12 @@
     jetbrains.rust-rover
     kdePackages.kate
     kdePackages.okular
+    thinkpad-scripts # Screen rotation, docking and other scripts for ThinkPad® X220 and X230 Tablet
+    drawio
+    appimage-run
+    appimageupdate # Update AppImages using information embedded in the AppImage itself
+    # appimageupdate-qt
+    # cura-appimage - 3D printing software
     mariadb
     python3
     renpy
@@ -386,6 +392,8 @@
     kdePackages.ark
     kdePackages.filelight
     kdePackages.kdevelop
+    kdePackages.dolphin
+    kdePackages.dolphin-plugins
     picom
     playonlinux
     mupen64plus

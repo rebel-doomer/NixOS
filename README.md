@@ -1,5 +1,13 @@
 # Personal NixOS Config & Dot Files
 I am a complete beginner to NixOS, I have no idea what I'm doing.
+## Godot Games
+Compatibility to test own games I make in Godot is tricky, one potential solution is to port my Godot games as AppImages. 
+
+```
+appimage-run game-name.AppImage
+```
+
+Note: You can ensure `appimage-run` is available by running it via `nix-shell -p appimage-run` or installing it globally.
 
 ## Terminal Commands Cheatsheet
 
