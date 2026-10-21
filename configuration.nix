@@ -261,6 +261,7 @@
     jetbrains.ruby-mine
     jetbrains.rust-rover
     kdePackages.kate
+    kdePackages.okular
     mariadb
     python3
     renpy
@@ -384,11 +385,17 @@
     zip
     kdePackages.ark
     kdePackages.filelight
+    kdePackages.kdevelop
     picom
     playonlinux
     mupen64plus
     weather
     tgpt
+    wine64
+    wine
+    notepad-next # notepad++ re-implemented for the 438746th time
+    wine-wayland
+
   ];
 
   services.openssh.enable = true;
