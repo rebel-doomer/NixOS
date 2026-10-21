@@ -279,6 +279,8 @@
     go
     vscodium
     javascript-typescript-langserver
+    jellyfin-desktop
+    # jre is an Open-source Java Development Kit. made redundant by the fact i see no difference between jdk vs jre
     arduino-ide
     arduino-cli
     telegram-desktop
@@ -375,6 +377,7 @@
     jellyfin-web
     jellyfin-tui
     jellyfin-desktop
+    java-language-server
     pulseaudioFull
     qmmp
     musicfree-desktop # Customizable music player with plugin support
@@ -409,11 +412,20 @@
     wine
     notepad-next # notepad++ re-implemented for the 438746th time
     wine-wayland
-
+    eza          # Modern, colorful replacement for ls
+    bat          # Cat clone with syntax highlighting
+    ripgrep      # Extremely fast text search tool
+    fd           # Simple, fast replacement for find
+    duf          # Clean, modern alternative to `df` disk usage
+    ncdu         # Terminal disk usage analyzer with an interactive interface
   ];
 
   services.openssh.enable = true;
   networking.firewall.enable = true;
+  # Firewall Rules for Local Development
+  # Since i have PostgreSQL, MariaDB, Nginx, and PHP installed, opening local development ports for testing from other local devices or virtual machines can be helpful:
+  # networking.firewall.allowedTCPPorts = [ 80 443 8080 3000 ];
+  # currently not using, since I might just do such dev work on my school and work laptop
 
   system.copySystemConfiguration = true;
   system.stateVersion = "26.05";
@@ -503,6 +515,29 @@
     enable = true;
     binfmt = true;
   };
+
+  # zram creates a compressed RAM drive used for swap. It makes high-memory tasks (like compiling code or gaming) smoother on any system.
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50; # Uses up to 50% of your RAM as compressed swap
+  };
+
+  # Easily index and quickly search for any file on your computer from the terminal using locate <filename>.
+  services.locate = {
+    enable = true;
+    package = pkgs.plocate;
+    interval = "hourly";
+  };
+
+  services.flatpak.enable = true;
+
+  # Add this single setting to automatically fix/verify the Nix store DB integrity in the background:
+  nix.settings.auto-optimise-store = true;
+
+  # Microcode Updates for CPU Performance
+  # Ensure your CPU receives vendor security and stability microcode patches automatically
+  hardware.cpu.intel.updateMicrocode = true;
+  # Use hardware.cpu.amd.updateMicrocode = true; if you have an AMD CPU
 
   # Shell (fish setup and aliases)
   programs.fish.enable = true;
