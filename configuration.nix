@@ -309,14 +309,14 @@
     freedoom
     chocolate-doom
     crispy-doom
-    polybarFull
-    polybar-pulseaudio-control
+    # polybarFull
+    # polybar-pulseaudio-control
     flameshot
     gitkraken
     claude-code
     claude-monitor
     chromium
-    rofi
+    # rofi
     gimp
     lazygit
     lua5
@@ -418,6 +418,7 @@
     fd           # Simple, fast replacement for find
     duf          # Clean, modern alternative to `df` disk usage
     ncdu         # Terminal disk usage analyzer with an interactive interface
+    nnn # Small ncurses-based file browser forked from noice
   ];
 
   services.openssh.enable = true;
