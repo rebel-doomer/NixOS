@@ -371,11 +371,17 @@
     zenmap
     audacious
     audacious-plugins
+    icloudpd # iCloud Photos Downloader
     jellyfin-web
     jellyfin-tui
     jellyfin-desktop
     pulseaudioFull
     qmmp
+    musicfree-desktop # Customizable music player with plugin support
+    strawberry # music player that reminds me of late 2000s iTunes
+    beep # Advanced PC speaker beeper
+    beets # Music tagger and library organizer
+    libmusicbrainz
     terminalmap
     obsidian
     diskscan
