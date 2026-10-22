@@ -82,8 +82,11 @@
     packages = with pkgs; [];
   };
 
-  # Allow unfree packages
+  # Allow unfree packages and permit the specific insecure electron version
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-41.10.7"
+  ];
 
   # Enable Steam via dedicated module
   programs.steam.enable = true;
@@ -262,12 +265,10 @@
     jetbrains.rust-rover
     kdePackages.kate
     kdePackages.okular
-    thinkpad-scripts # Screen rotation, docking and other scripts for ThinkPad® X220 and X230 Tablet
+    # thinkpad-scripts
     drawio
     appimage-run
-    appimageupdate # Update AppImages using information embedded in the AppImage itself
-    # appimageupdate-qt
-    # cura-appimage - 3D printing software
+    appimageupdate
     mariadb
     python3
     renpy
@@ -280,7 +281,6 @@
     vscodium
     javascript-typescript-langserver
     jellyfin-desktop
-    # jre is an Open-source Java Development Kit. made redundant by the fact i see no difference between jdk vs jre
     arduino-ide
     arduino-cli
     telegram-desktop
@@ -309,16 +309,12 @@
     freedoom
     chocolate-doom
     crispy-doom
-    # polybarFull
-    # polybar-pulseaudio-control
     flameshot
     gitkraken
     claude-code
     claude-monitor
     chromium
-    # rofi
     gimp
-    lazygit
     lua5
     zx
     mujs
@@ -330,9 +326,7 @@
     spotify-qt
     spotify-player
     dotnet-sdk_11
-    dmenu
     dbeaver-bin
-    teams-for-linux
     pomodoro-gtk
     openpomodoro-cli
     translatelocally
@@ -373,17 +367,16 @@
     zenmap
     audacious
     audacious-plugins
-    icloudpd # iCloud Photos Downloader
+    icloudpd
     jellyfin-web
     jellyfin-tui
     jellyfin-desktop
     java-language-server
     pulseaudioFull
-    qmmp
-    musicfree-desktop # Customizable music player with plugin support
-    strawberry # music player that reminds me of late 2000s iTunes
-    beep # Advanced PC speaker beeper
-    beets # Music tagger and library organizer
+    musicfree-desktop
+    strawberry
+    beep
+    beets
     libmusicbrainz
     terminalmap
     obsidian
@@ -391,7 +384,6 @@
     disktui
     fetchutils
     grub2_efi
-    tint2
     cpupower-gui
     cutecom
     terminator
@@ -410,23 +402,19 @@
     tgpt
     wine64
     wine
-    notepad-next # notepad++ re-implemented for the 438746th time
+    notepad-next
     wine-wayland
-    eza          # Modern, colorful replacement for ls
-    bat          # Cat clone with syntax highlighting
-    ripgrep      # Extremely fast text search tool
-    fd           # Simple, fast replacement for find
-    duf          # Clean, modern alternative to `df` disk usage
-    ncdu         # Terminal disk usage analyzer with an interactive interface
-    nnn # Small ncurses-based file browser forked from noice
+    eza
+    bat
+    ripgrep
+    fd
+    duf
+    ncdu
+    nnn
   ];
 
   services.openssh.enable = true;
   networking.firewall.enable = true;
-  # Firewall Rules for Local Development
-  # Since i have PostgreSQL, MariaDB, Nginx, and PHP installed, opening local development ports for testing from other local devices or virtual machines can be helpful:
-  # networking.firewall.allowedTCPPorts = [ 80 443 8080 3000 ];
-  # currently not using, since I might just do such dev work on my school and work laptop
 
   system.copySystemConfiguration = true;
   system.stateVersion = "26.05";
@@ -517,13 +505,11 @@
     binfmt = true;
   };
 
-  # zram creates a compressed RAM drive used for swap. It makes high-memory tasks (like compiling code or gaming) smoother on any system.
   zramSwap = {
     enable = true;
-    memoryPercent = 50; # Uses up to 50% of your RAM as compressed swap
+    memoryPercent = 50;
   };
 
-  # Easily index and quickly search for any file on your computer from the terminal using locate <filename>.
   services.locate = {
     enable = true;
     package = pkgs.plocate;
@@ -532,36 +518,25 @@
 
   services.flatpak.enable = true;
 
-  # Add this single setting to automatically fix/verify the Nix store DB integrity in the background:
   nix.settings.auto-optimise-store = true;
 
-  # Microcode Updates for CPU Performance
-  # Ensure your CPU receives vendor security and stability microcode patches automatically
   hardware.cpu.intel.updateMicrocode = true;
-  # Use hardware.cpu.amd.updateMicrocode = true; if you have an AMD CPU
 
   # Shell (fish setup and aliases)
   programs.fish.enable = true;
   programs.fish.interactiveShellInit = ''
     if status is-interactive
-        # Commands to run in interactive sessions can go here
     end
 
-    # Rebuild system using your local repo configuration
     alias build-nix "sudo nixos-rebuild switch -I nixos-config=/home/reb/NixOS/configuration.nix"
-
-    # Upgrade system packages and rebuild using your local repo configuration
     alias update-nix "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/reb/NixOS/configuration.nix"
   '';
 
-  # Security & System Performance
   security.rtkit.enable = true;
   security.sudo-rs.enable = true;
 
-  # Local File Sharing
   programs.localsend.enable = true;
 
-  # Global Session Variables for X11 / GTK
   environment.sessionVariables = {
     XCURSOR_THEME = "BreezeX-RoséPine";
     XCURSOR_SIZE = "24";
