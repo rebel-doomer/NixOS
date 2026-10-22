@@ -114,14 +114,6 @@
   # Enable Steam via dedicated module
   programs.steam.enable = true;
 
-  # Auto-Greet with Fastfetch
-  # Since i already have a bunch of fetch tools installed (fastfetch, hyfetch, etc.), you can make your terminal automatically display the system info every time opening a new window
-  programs.fish.interactiveShellInit = ''
-  if status is-interactive
-      hyfetch
-  end
-'';
-
   # System fonts configuration
   fonts.packages = with pkgs; [
     ubuntu-sans
@@ -131,6 +123,7 @@
     font-awesome
     noto-fonts
     liberation_ttf
+    starship # Ensure starship binary is available system-wide
   ];
 
   xdg = {
@@ -442,6 +435,7 @@
     duf
     ncdu
     nnn
+    starship
   ];
 
   services.openssh.enable = true;
@@ -553,22 +547,18 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  # Shell (fish setup and aliases)
+  # Shell (fish setup, aliases, hyfetch, and starship initialization)
   programs.fish.enable = true;
   programs.fish.interactiveShellInit = ''
     if status is-interactive
+        hyfetch
     end
 
     alias build-nix "sudo nixos-rebuild switch -I nixos-config=/home/reb/NixOS/configuration.nix"
     alias update-nix "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/reb/NixOS/configuration.nix"
-  '';
 
- # Enable Starship cross-shell prompt and hook it into Fish
- # Instead of a plain default prompt, Starship automatically detects your environment and displays helpful information right where you need it
-  programs.starship = {
-    enable = true;
-    interactiveShellInit = "starship init fish | source";
-  };
+    starship init fish | source
+  '';
 
   security.rtkit.enable = true;
   security.sudo-rs.enable = true;
