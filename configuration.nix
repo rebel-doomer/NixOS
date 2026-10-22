@@ -26,6 +26,29 @@
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # configure NixOS to store temporary files in RAM instead of writing them to the drive. 
+  # This speeds up application loading and reduces unnecessary wear-and-tear on the SSD
+  # don't need to manually micromanage this because tmpfs is completely dynamic
+  # Linux handles memory prioritization automatically.
+  # tmpfs Doesn't Pre-allocate RAM
+  # When you enable boot.tmp.useTmpfs = true
+  # it doesn't instantly carve out a chunk of the RAM (like 50%) and lock it away. 
+  # It only uses RAM as files are actually written into /tmp. 
+  # If /tmp is empty or only holding small temporary files, it uses virtually zero RAM.
+  # Linux Automatically Prioritizes Active Apps
+  # The Linux kernel's memory manager constantly monitors what is happening
+  # Active apps (IDEs, browsers, etc) get immediate priority for physical RAM.
+  # If /tmp files aren't being actively used, or if system memory gets tight, 
+  # the kernel automatically pushes inactive data into zram or swap file to free up physical RAM for heavy applications.
+    boot.tmp.useTmpfs = true; 
+
+
+The Linux kernel's memory manager constantly monitors what is happening:
+
+    Active apps (IDEs, browsers, Ollama) get immediate priority for physical RAM.
+
+    If /tmp files aren't being actively used, or if system memory gets tight, the kernel automatically pushes inactive data into your zram or swap file to free up physical RAM for your heavy applications.
+
   # Automatic Garbage Collection & Generation Management
   nix.gc = {
     automatic = true;
@@ -70,6 +93,11 @@
     variant = "";
   };
 
+  # Limit Systemd Journal Log Size
+  services.journald.extraConfig = ''
+  SystemMaxUse=4G
+'';
+
   # Configure console keymap
   console.keyMap = "us";
 
@@ -90,6 +118,14 @@
 
   # Enable Steam via dedicated module
   programs.steam.enable = true;
+
+  # Auto-Greet with Fastfetch
+  # Since i already have a bunch of fetch tools installed (fastfetch, hyfetch, etc.), you can make your terminal automatically display the system info every time opening a new window
+  programs.fish.interactiveShellInit = ''
+  if status is-interactive
+      hyfetch
+  end
+'';
 
   # System fonts configuration
   fonts.packages = with pkgs; [
@@ -531,6 +567,11 @@
     alias build-nix "sudo nixos-rebuild switch -I nixos-config=/home/reb/NixOS/configuration.nix"
     alias update-nix "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/reb/NixOS/configuration.nix"
   '';
+
+  programs.starship = {
+    enable = true;
+    interactiveShellInit = "starship init fish | source";
+  };
 
   security.rtkit.enable = true;
   security.sudo-rs.enable = true;
