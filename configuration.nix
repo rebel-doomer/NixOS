@@ -42,13 +42,6 @@
   # the kernel automatically pushes inactive data into zram or swap file to free up physical RAM for heavy applications.
     boot.tmp.useTmpfs = true; 
 
-
-The Linux kernel's memory manager constantly monitors what is happening:
-
-    Active apps (IDEs, browsers, Ollama) get immediate priority for physical RAM.
-
-    If /tmp files aren't being actively used, or if system memory gets tight, the kernel automatically pushes inactive data into your zram or swap file to free up physical RAM for your heavy applications.
-
   # Automatic Garbage Collection & Generation Management
   nix.gc = {
     automatic = true;
