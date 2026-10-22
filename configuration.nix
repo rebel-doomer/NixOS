@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
     ];
 
-  # Explicitly set NIX_PATH so nixos-rebuild automatically reads from your git repository
+  # Explicitly set NIX_PATH so nixos-rebuild automatically reads from my git repository
   nix.nixPath = [
     "nixos-config=/home/reb/NixOS/configuration.nix"
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
@@ -46,7 +46,7 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 30d";
+    options = "--delete-older-than 120d";
   };
 
   # Declarative 32GB Swap File
@@ -57,7 +57,7 @@
     }
   ];
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos"; # Define hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -66,8 +66,9 @@
   time.timeZone = "Europe/Copenhagen";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_DK.UTF-8";
-
+  i18n.defaultLocale = "en_DK.UTF-8"; 
+  
+  # todo configure languages (LT, US, DK) and english colemak layout
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "da_DK.UTF-8";
     LC_IDENTIFICATION = "da_DK.UTF-8";
@@ -80,7 +81,7 @@
     LC_TIME = "da_DK.UTF-8";
   };
 
-  # Configure keymap in X11
+  # Configure keymap in X11, good for guaranteed fallback
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -92,7 +93,8 @@
 '';
 
   # Configure console keymap
-  console.keyMap = "us";
+  # this is where you set the layout for the virtual console/TTY (the plain text screen you see if you press Ctrl+Alt+F3, or before a graphical desktop loads).
+  console.keyMap = "us"; # todo consider colemak layout later
 
   # Define a user account.
   users.users."reb" = {
