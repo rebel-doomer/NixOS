@@ -561,6 +561,8 @@
     alias update-nix "sudo nixos-rebuild switch --upgrade -I nixos-config=/home/reb/NixOS/configuration.nix"
   '';
 
+ # Enable Starship cross-shell prompt and hook it into Fish
+ # Instead of a plain default prompt, Starship automatically detects your environment and displays helpful information right where you need it
   programs.starship = {
     enable = true;
     interactiveShellInit = "starship init fish | source";
