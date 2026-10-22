@@ -46,7 +46,7 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 120d";
+    options = "--delete-older-than 120d"; # todo tweak how long
   };
 
   # Declarative 32GB Swap File
@@ -108,7 +108,7 @@
   # Allow unfree packages and permit the specific insecure electron version
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-41.10.7"
+    "electron-41.10.7" # todo find a better work arond later
   ];
 
   # Enable Steam via dedicated module
@@ -127,11 +127,11 @@
   ];
 
   xdg = {
-    icons.fallbackCursorThemes = [ "BreezeX-RoséPine" ];
+    icons.fallbackCursorThemes = [ "BreezeX-RoséPine" ]; # todo choose something more compatible/standard
   };
 
   environment.variables = {
-    XCURSOR_THEME = "BreezeX-RoséPine";
+    XCURSOR_THEME = "BreezeX-RoséPine"; # todo choose something more compatible/standard
     XCURSOR_SIZE = "24";
   };
 
@@ -142,7 +142,7 @@
   environment.etc."btop/btop.conf".text = ''
     color_theme = "dracula"
     theme_background = False
-    update_ms = 2000
+    update_ms = 2500
     proc_sorting = "cpu lazy"
     proc_reversed = False
     proc_tree = False
@@ -172,7 +172,7 @@
     vim
     wget
     firefox
-    kitty
+    # kitty
     git
     github-cli
     github-desktop
@@ -207,7 +207,7 @@
     alpaca
     bleachbit
     # conky
-    php
+    # php
     nginx
     jetbrains.rider
     jetbrains.webstorm
@@ -370,11 +370,14 @@
     starship
   ];
 
+  # enable ssh
   services.openssh.enable = true;
+  
+  # enable firewall
   networking.firewall.enable = true;
 
   system.copySystemConfiguration = true;
-  system.stateVersion = "26.05";
+  system.stateVersion = "26.05"; # todo research
 
   # PostgreSQL Service
   services.postgresql = {
@@ -393,12 +396,12 @@
     };
   };
 
-  # virtualization/docker
+  # virtualization/docker enable
   virtualisation.docker.enable = true;
 
   # Enable display server and KDE Plasma cleanly
   services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true; # todo choose a new DM, maybe
 
   # Auto-start Conky on login
   # services.xserver.displayManager.sessionCommands = ''
@@ -452,7 +455,7 @@
     pulse.enable = true;
     alsa = {
       enable = true;
-      support32Bit = true;
+      support32Bit = true; # steam compatibility, i guess
     };
   };
 
@@ -467,16 +470,25 @@
     memoryPercent = 50;
   };
 
+  # enables plocate, a fast file-search utility
+  # sets up background service to index entire hard drive every x hour(s)
+  # to instantly locate files using commands like locate <filename>.
   services.locate = {
     enable = true;
     package = pkgs.plocate;
     interval = "hourly";
   };
 
+  # flatpak
   services.flatpak.enable = true;
 
+  # Automatically hard-links identical files in Nix store. 
+  # If multiple installed packages/apps share the exact same files, 
+  # Nix replaces duplicate copies on drive with a single hard link to save disk space.
   nix.settings.auto-optimise-store = true;
 
+  # automatic loading of latest microcode updates for Intel CPU during boot. 
+  # applies vital security patches, stability fixes, performance improvements directly from Intel.
   hardware.cpu.intel.updateMicrocode = true;
 
   # Shell (fish setup, aliases, hyfetch, and starship initialization)
@@ -492,6 +504,7 @@
     starship init fish | source
   '';
 
+  # security
   security.rtkit.enable = true;
   security.sudo-rs.enable = true;
 
