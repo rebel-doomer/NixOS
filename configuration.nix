@@ -28,19 +28,7 @@
 
   # configure NixOS to store temporary files in RAM instead of writing them to the drive. 
   # This speeds up application loading and reduces unnecessary wear-and-tear on the SSD
-  # don't need to manually micromanage this because tmpfs is completely dynamic
-  # Linux handles memory prioritization automatically.
-  # tmpfs Doesn't Pre-allocate RAM
-  # When you enable boot.tmp.useTmpfs = true
-  # it doesn't instantly carve out a chunk of the RAM (like 50%) and lock it away. 
-  # It only uses RAM as files are actually written into /tmp. 
-  # If /tmp is empty or only holding small temporary files, it uses virtually zero RAM.
-  # Linux Automatically Prioritizes Active Apps
-  # The Linux kernel's memory manager constantly monitors what is happening
-  # Active apps (IDEs, browsers, etc) get immediate priority for physical RAM.
-  # If /tmp files aren't being actively used, or if system memory gets tight, 
-  # the kernel automatically pushes inactive data into zram or swap file to free up physical RAM for heavy applications.
-    boot.tmp.useTmpfs = true; 
+  boot.tmp.useTmpfs = true; 
 
   # Automatic Garbage Collection & Generation Management
   nix.gc = {
@@ -68,7 +56,6 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_DK.UTF-8"; 
   
-  # todo configure languages (LT, US, DK) and english colemak layout
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "da_DK.UTF-8";
     LC_IDENTIFICATION = "da_DK.UTF-8";
@@ -93,8 +80,7 @@
 '';
 
   # Configure console keymap
-  # this is where you set the layout for the virtual console/TTY (the plain text screen you see if you press Ctrl+Alt+F3, or before a graphical desktop loads).
-  console.keyMap = "us"; # todo consider colemak layout later
+  console.keyMap = "us";
 
   # Define a user account.
   users.users."reb" = {
@@ -108,7 +94,7 @@
   # Allow unfree packages and permit the specific insecure electron version
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-41.10.7" # todo find a better work arond later
+    "electron-41.10.7"
   ];
 
   # Enable Steam via dedicated module
@@ -123,7 +109,7 @@
     font-awesome
     noto-fonts
     liberation_ttf
-    starship # Ensure starship binary is available system-wide
+    starship
   ];
 
   xdg = {
@@ -131,7 +117,7 @@
     portal = {
       enable = true;
       extraPortals = [
-        pkgs.xdg-desktop-portal-kde # Required for Plasma 6 screen capture permissions
+        pkgs.kdePackages.xdg-desktop-portal-kde # Fixed path for Plasma 6
       ];
       config.common.default = "*";
     };
@@ -365,14 +351,11 @@
     starship
   ];
 
-  # enable ssh
   services.openssh.enable = true;
-  
-  # enable firewall
   networking.firewall.enable = true;
 
   system.copySystemConfiguration = true;
-  system.stateVersion = "26.05"; # todo research
+  system.stateVersion = "26.05";
 
   # PostgreSQL Service
   services.postgresql = {
@@ -396,7 +379,7 @@
 
   # Enable display server and KDE Plasma cleanly
   services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm.enable = true; # todo choose a new DM, maybe
+  services.displayManager.sddm.enable = true;
 
   # Ollama & Local AI
   services.ollama = {
@@ -445,7 +428,7 @@
     pulse.enable = true;
     alsa = {
       enable = true;
-      support32Bit = true; # steam compatibility, i guess
+      support32Bit = true;
     };
   };
 
@@ -460,20 +443,16 @@
     memoryPercent = 50;
   };
 
-  # enables plocate, a fast file-search utility
   services.locate = {
     enable = true;
     package = pkgs.plocate;
     interval = "hourly";
   };
 
-  # flatpak
   services.flatpak.enable = true;
 
-  # Automatically hard-links identical files in Nix store. 
   nix.settings.auto-optimise-store = true;
 
-  # automatic loading of latest microcode updates for Intel CPU during boot. 
   hardware.cpu.intel.updateMicrocode = true;
 
   # Shell (fish setup, aliases, hyfetch, and starship initialization)
@@ -489,7 +468,6 @@
     starship init fish | source
   '';
 
-  # security
   security.rtkit.enable = true;
   security.sudo-rs.enable = true;
 
