@@ -127,27 +127,20 @@
   ];
 
   xdg = {
-<<<<<<< HEAD
     icons.fallbackCursorThemes = [ "BreezeX-RoséPine" ];
     portal = {
       enable = true;
       extraPortals = [
-        pkgs.xdg-desktop-portal-kde # Assuming Plasma 6 since you use desktopManager.plasma6
+        pkgs.xdg-desktop-portal-kde # Required for Plasma 6 screen capture permissions
       ];
       config.common.default = "*";
     };
-=======
-    icons.fallbackCursorThemes = [ "BreezeX-RoséPine" ]; # todo choose something more compatible/standard
->>>>>>> origin/main
   };
 
   environment.variables = {
-    XCURSOR_THEME = "BreezeX-RoséPine"; # todo choose something more compatible/standard
+    XCURSOR_THEME = "BreezeX-RoséPine";
     XCURSOR_SIZE = "24";
   };
-
-  # Declaratively generate the Conky configuration file at /etc/conky/conky.conf
-  # GONE LOL bye conky
 
   # Declaratively generate btop configuration with Dracula theme
   environment.etc."btop/btop.conf".text = ''
@@ -172,18 +165,12 @@
     selected_battery = "Auto"
     log_level = "WARNING"
   '';
-
-  # Auto-start Conky via user desktop autostart entry
-  # note Conky is obsolete x11 trash.
-  # todo migrate to wayland alternative to conky
-  # services.xserver.desktopManager.plasma6.enable = true; # ensures KDE session
   
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     vim
     wget
     firefox
-    # kitty
     git
     github-cli
     github-desktop
@@ -217,8 +204,6 @@
     audacity
     alpaca
     bleachbit
-    # conky
-    # php
     nginx
     jetbrains.rider
     jetbrains.webstorm
@@ -232,7 +217,6 @@
     jetbrains.rust-rover
     kdePackages.kate
     kdePackages.okular
-    # thinkpad-scripts
     drawio
     appimage-run
     appimageupdate
@@ -414,11 +398,6 @@
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true; # todo choose a new DM, maybe
 
-  # Auto-start Conky on login
-  # services.xserver.displayManager.sessionCommands = ''
-  #  conky -c /etc/conky/conky.conf &
-  #'';
-
   # Ollama & Local AI
   services.ollama = {
     enable = true;
@@ -482,8 +461,6 @@
   };
 
   # enables plocate, a fast file-search utility
-  # sets up background service to index entire hard drive every x hour(s)
-  # to instantly locate files using commands like locate <filename>.
   services.locate = {
     enable = true;
     package = pkgs.plocate;
@@ -494,12 +471,9 @@
   services.flatpak.enable = true;
 
   # Automatically hard-links identical files in Nix store. 
-  # If multiple installed packages/apps share the exact same files, 
-  # Nix replaces duplicate copies on drive with a single hard link to save disk space.
   nix.settings.auto-optimise-store = true;
 
   # automatic loading of latest microcode updates for Intel CPU during boot. 
-  # applies vital security patches, stability fixes, performance improvements directly from Intel.
   hardware.cpu.intel.updateMicrocode = true;
 
   # Shell (fish setup, aliases, hyfetch, and starship initialization)
