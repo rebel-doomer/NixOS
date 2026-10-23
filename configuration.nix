@@ -46,7 +46,7 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 120d";
+    options = "--delete-older-than 120d"; # todo tweak how long
   };
 
   # Declarative 32GB Swap File
@@ -108,7 +108,7 @@
   # Allow unfree packages and permit the specific insecure electron version
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-41.10.7"
+    "electron-41.10.7" # todo find a better work arond later
   ];
 
   # Enable Steam via dedicated module
@@ -127,6 +127,7 @@
   ];
 
   xdg = {
+<<<<<<< HEAD
     icons.fallbackCursorThemes = [ "BreezeX-RoséPine" ];
     portal = {
       enable = true;
@@ -135,91 +136,24 @@
       ];
       config.common.default = "*";
     };
+=======
+    icons.fallbackCursorThemes = [ "BreezeX-RoséPine" ]; # todo choose something more compatible/standard
+>>>>>>> origin/main
   };
 
   environment.variables = {
-    XCURSOR_THEME = "BreezeX-RoséPine";
+    XCURSOR_THEME = "BreezeX-RoséPine"; # todo choose something more compatible/standard
     XCURSOR_SIZE = "24";
   };
 
   # Declaratively generate the Conky configuration file at /etc/conky/conky.conf
-  environment.etc."conky/conky.conf".text = ''
-    conky.config = {
-        use_xft = true,
-        font = 'DejaVu Sans Mono:size=10',
-        xftalpha = 1,
-        update_interval = 1,
-        total_run_times = 0,
-        own_window = true,
-        own_window_type = 'desktop',
-        own_window_transparent = true,
-        own_window_argb_visual = true,
-        own_window_argb_value = 50,
-        own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-        double_buffer = true,
-        minimum_width = 300,
-        minimum_height = 600,
-        maximum_width = 300,
-        draw_shades = false,
-        draw_outline = false,
-        draw_borders = false,
-        draw_graph_borders = false,
-        default_color = 'white',
-        alignment = 'bottom_left',
-        gap_x = 100,
-        gap_y = 30,
-        no_buffers = true,
-        uppercase = false,
-        cpu_avg_samples = 2,
-        override_utf8_locale = true,
-        color1 = '#FFFFFF',
-        color2 = '#FFA500',
-    };
-
-    conky.text = [[
-    $${color2}$$
-{font Ubuntu:bold:size=10}SYSTEM $${hr 2}$${font}
-    $${color1}Distribution:$$
-    $${execi 3600 lsb_release -ds}$$
-{color1}Kernel:$$ $${kernel}
-    $${color1}Hostname:$$
-    $${nodename}$$
-{color1}Uptime:$$ $${uptime}
-
-    $${color2}$$
-{font Ubuntu:bold:size=10}CPU $${hr 2}$${font}
-    $${color1}CPU1 Usage:$$
-    $${cpu cpu1}\%$$
-{cpubar cpu1}$${color1}CPU2 Usage:$${cpu cpu2}\%$${cpubar cpu2}$${color1}CPU3 Usage:$$ $${cpu cpu3}% $${cpubar cpu3}$${color1}CPU4 Usage: $${cpu cpu4}\%$${cpubar cpu4}
-    $${color1}CPU Graph:$$
-    $${cpugraph 50,140}$$
-{color2}$${font Ubuntu:bold:size=10}MEMORY$${hr 2}$${font}$${color1}RAM Usage:$$ $${mem} of $${memmax} ($${memperc}%)
-    $${color1}RAM Bar:$$
-    $${membar}$$
-{color1}Free RAM:$$ $${memeasyfree}
-
-    $${color2}$$
-{font Ubuntu:bold:size=10}STORAGE $${hr 2}$${font}
-    $${color1}Root:$$
-    $${fs_used /} of$$
-{fs_size /}$${color1}Usage:$${fs_used_perc /}\%$${fs_bar 6,140 /}$${color2}$${font Ubuntu:bold:size=10}UPDATES$${hr 2}$${font}$${color1}Packages to Update:$$ $${execi 3600 apt list --upgradeable 2>/dev/null | grep -cv 'Listing...'}
-
-    $${color2}$$
-{font Ubuntu:bold:size=10}TOP CPU PROCESSES $${hr 2}$${font}
-    $${color1}CPU:$$
-    $${top name 1}$$
-{top cpu 1}\%$${color1}CPU:$${top name 2}$${top cpu 2}\%$${color1}CPU:$$ $${top name 3} $${top cpu 3}\%$${color2}$${font Ubuntu:bold:size=10}TOP RAM PROCESSES$${hr 2}$${font}$${color1}RAM: $${top_mem name 1}$${top_mem mem 1}%
-    $${color1}RAM:$$
-    $${top_mem name 2}$$
-{top_mem mem 2}\%$${color1}RAM:$${top_mem name 3}$${top_mem mem 3}\%$${color2}$${font Ubuntu:bold:size=10}BATTERIES$${hr 2}$${font}$${color1}Battery 1:$$ $${battery_percent BAT0}% $${battery_bar BAT0}$${color1}Battery 2: $${battery_percent BAT1}\%$${battery_bar BAT1}
-    ]];
-  '';
+  # GONE LOL bye conky
 
   # Declaratively generate btop configuration with Dracula theme
   environment.etc."btop/btop.conf".text = ''
     color_theme = "dracula"
     theme_background = False
-    update_ms = 2000
+    update_ms = 2500
     proc_sorting = "cpu lazy"
     proc_reversed = False
     proc_tree = False
@@ -240,14 +174,16 @@
   '';
 
   # Auto-start Conky via user desktop autostart entry
-  services.xserver.desktopManager.plasma6.enable = true; # ensures KDE session
+  # note Conky is obsolete x11 trash.
+  # todo migrate to wayland alternative to conky
+  # services.xserver.desktopManager.plasma6.enable = true; # ensures KDE session
   
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     vim
     wget
     firefox
-    kitty
+    # kitty
     git
     github-cli
     github-desktop
@@ -281,8 +217,8 @@
     audacity
     alpaca
     bleachbit
-    conky
-    php
+    # conky
+    # php
     nginx
     jetbrains.rider
     jetbrains.webstorm
@@ -445,11 +381,14 @@
     starship
   ];
 
+  # enable ssh
   services.openssh.enable = true;
+  
+  # enable firewall
   networking.firewall.enable = true;
 
   system.copySystemConfiguration = true;
-  system.stateVersion = "26.05";
+  system.stateVersion = "26.05"; # todo research
 
   # PostgreSQL Service
   services.postgresql = {
@@ -468,17 +407,17 @@
     };
   };
 
-  # virtualization/docker
+  # virtualization/docker enable
   virtualisation.docker.enable = true;
 
   # Enable display server and KDE Plasma cleanly
   services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true; # todo choose a new DM, maybe
 
   # Auto-start Conky on login
-  services.xserver.displayManager.sessionCommands = ''
-    conky -c /etc/conky/conky.conf &
-  '';
+  # services.xserver.displayManager.sessionCommands = ''
+  #  conky -c /etc/conky/conky.conf &
+  #'';
 
   # Ollama & Local AI
   services.ollama = {
@@ -527,7 +466,7 @@
     pulse.enable = true;
     alsa = {
       enable = true;
-      support32Bit = true;
+      support32Bit = true; # steam compatibility, i guess
     };
   };
 
@@ -542,16 +481,25 @@
     memoryPercent = 50;
   };
 
+  # enables plocate, a fast file-search utility
+  # sets up background service to index entire hard drive every x hour(s)
+  # to instantly locate files using commands like locate <filename>.
   services.locate = {
     enable = true;
     package = pkgs.plocate;
     interval = "hourly";
   };
 
+  # flatpak
   services.flatpak.enable = true;
 
+  # Automatically hard-links identical files in Nix store. 
+  # If multiple installed packages/apps share the exact same files, 
+  # Nix replaces duplicate copies on drive with a single hard link to save disk space.
   nix.settings.auto-optimise-store = true;
 
+  # automatic loading of latest microcode updates for Intel CPU during boot. 
+  # applies vital security patches, stability fixes, performance improvements directly from Intel.
   hardware.cpu.intel.updateMicrocode = true;
 
   # Shell (fish setup, aliases, hyfetch, and starship initialization)
@@ -567,6 +515,7 @@
     starship init fish | source
   '';
 
+  # security
   security.rtkit.enable = true;
   security.sudo-rs.enable = true;
 
