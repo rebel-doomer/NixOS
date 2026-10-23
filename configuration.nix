@@ -128,6 +128,13 @@
 
   xdg = {
     icons.fallbackCursorThemes = [ "BreezeX-RoséPine" ];
+    portal = {
+      enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-kde # Assuming Plasma 6 since you use desktopManager.plasma6
+      ];
+      config.common.default = "*";
+    };
   };
 
   environment.variables = {
@@ -570,5 +577,6 @@
     XCURSOR_SIZE = "24";
     GTK_CSD = "0";
     GDK_SCALE = "1";
+    QT_QPA_PLATFORM = "wayland";
   };
 }
