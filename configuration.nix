@@ -349,6 +349,19 @@
     ncdu
     nnn
     starship
+    catppuccin-kde
+    kdePackages.kdenlive
+    kdePackages.ktimer
+    ktimetracker
+    desktop-file-utils # Command line utilities for working with .desktop files
+    # alsa-utils - ALSA, the Advanced Linux Sound Architecture utils
+    # xdg-utils - Set of command line tools that assist applications with a variety of desktop integration tasks
+    usbutils # Tools for working with USB devices, such as lsusb
+    iputils # Set of small useful utilities for Linux networking
+    findutils # GNU Find Utilities, the basic directory searching utilities of the GNU operating system
+    pciutils # Collection of programs for inspecting and manipulating configuration of PCI devices
+    coreutils # GNU Core Utilities
+    dmidecode # Tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard
   ];
 
   services.openssh.enable = true;
