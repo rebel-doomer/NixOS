@@ -368,6 +368,9 @@
   system.copySystemConfiguration = true;
   system.stateVersion = "26.05";
 
+  # enable finger print sensor for thinkpad X1
+  services.fprintd.enable = true;
+
   # PostgreSQL Service
   services.postgresql = {
     enable = true;
