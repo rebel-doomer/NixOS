@@ -151,6 +151,64 @@
     selected_battery = "Auto"
     log_level = "WARNING"
   '';
+
+  # Declaratively generate Eww (Wayland Desktop Widget) configuration
+  environment.etc."eww/eww.yuck".text = ''
+    (defwindow background-stats
+      :geometry (geometry :x "20px" :y "20px" :width "300px" :height "600px" :anchor "top left")
+      :stacking "bg"
+      :windowtype "desktop"
+      :wm-ignore true
+      (box :orientation "v" :space-evenly false :class "main-container"
+        (label :text "SYSTEM INFORMATION" :class "header-title")
+        (label :text "Uptime: {EWW_UPTIME}" :class "text-content")
+        (label :text "CPU Usage: {EWW_CPU.avg}%" :class "text-content")
+        (metric :label "RAM" :value {EWW_RAM.used_mem_perc} :max 100)
+      )
+    )
+
+    (defwidget metric [label value max]
+      (box :orientation "h" :space-evenly false :class "metric"
+        (label :text label :class "metric-label")
+        (scale :min 0 :max max :value value :active false)
+      )
+    )
+  '';
+
+  environment.etc."eww/eww.scss".text = ''
+    * {
+      font-family: monospace;
+    }
+
+    .main-container {
+      background-color: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 4px;
+    }
+
+    .header-title {
+      color: #00ffff;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .text-content {
+      color: #ffffff;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .metric-label {
+      color: #00ffff;
+      margin-right: 10px;
+    }
+
+    scale troughHIGHLIGHT {
+      background-color: #00ffff;
+    }
+  '';
   
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
@@ -351,15 +409,14 @@
     kdePackages.kdenlive
     kdePackages.ktimer
     ktimetracker
-    desktop-file-utils # Command line utilities for working with .desktop files
-    # alsa-utils - ALSA, the Advanced Linux Sound Architecture utils
-    # xdg-utils - Set of command line tools that assist applications with a variety of desktop integration tasks
-    usbutils # Tools for working with USB devices, such as lsusb
-    iputils # Set of small useful utilities for Linux networking
-    findutils # GNU Find Utilities, the basic directory searching utilities of the GNU operating system
-    pciutils # Collection of programs for inspecting and manipulating configuration of PCI devices
-    coreutils # GNU Core Utilities
-    dmidecode # Tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard
+    desktop-file-utils
+    usbutils
+    iputils
+    findutils
+    pciutils
+    coreutils
+    dmidecode
+    eww # Added Eww Wayland widget toolkit
   ];
 
   services.openssh.enable = true;
