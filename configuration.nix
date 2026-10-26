@@ -310,7 +310,6 @@
     jellyfin-desktop
     java-language-server
     pulseaudioFull
-    musicfree-desktop
     strawberry
     beep
     beets
@@ -339,7 +338,6 @@
     tgpt
     wine64
     wine
-    notepad-next
     wine-wayland
     eza
     bat
