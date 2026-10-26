@@ -128,6 +128,32 @@
     XCURSOR_SIZE = "24";
   };
 
+# Declaratively generate cava configuration
+  environment.etc."cava/config".text = ''
+    [general]
+    bars = 30
+    framerate = 60
+
+    [color]
+    background = 'default'
+    foreground = 'cyan'
+  '';
+  # Declaratively generate tmux configuration
+  environment.etc."tmux/tmux.conf".text = ''
+    set -g mouse on
+    set -s default-terminal "xterm-256color"
+    
+    # Enable Dracula theme plugin if installed
+    set -g @plugin 'tmux-plugins/tpm'
+    set -g @plugin 'tmux-plugins/tmux-sensible'
+    set -g @plugin 'dracula/tmux'
+    
+    # Dracula customizations
+    set -g @dracula-plugins "cpu-usage ram-usage network time"
+    set -g @dracula-show-powerline true
+    set -g @dracula-refresh-rate 5
+  '';
+  
   # Declaratively generate btop configuration with Dracula theme
   environment.etc."btop/btop.conf".text = ''
     color_theme = "dracula"
