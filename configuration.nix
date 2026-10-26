@@ -209,7 +209,114 @@
       background-color: #00ffff;
     }
   '';
-  
+
+  # Declaratively generate Fastfetch configuration matching the custom layout with NixOS logo
+  environment.etc."fastfetch/config.jsonc".text = ''
+    {
+      "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+      "logo": {
+        "type": "builtin",
+        "source": "NixOS",
+        "padding": {
+          "top": 1,
+          "left": 2,
+          "right": 3
+        }
+      },
+      "display": {
+        "separator": " "
+      },
+      "modules": [
+        "title",
+        {
+          "type": "custom",
+          "format": "┌────────────────────────────────────────────────────────────────────────┐"
+        },
+        {
+          "type": "os",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "kernel",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "de",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "wm",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "packages",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "custom",
+          "format": "├────────────────────────────────────────────────────────────────────────┤"
+        },
+        {
+          "type": "memory",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "cpu",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "gpu",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "swap",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "disk",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "battery",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "custom",
+          "format": "├────────────────────────────────────────────────────────────────────────┤"
+        },
+        {
+          "type": "uptime",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "terminal",
+          "key": " ⦿►",
+          "keyColor": "cyan"
+        },
+        {
+          "type": "custom",
+          "format": "└───────────────────────────────────────────────────⦿────────────────────┘"
+        },
+        {
+          "type": "colors",
+          "symbol": "circle"
+        }
+      ]
+    }
+  '';
+
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     vim
@@ -416,7 +523,13 @@
     pciutils
     coreutils
     dmidecode
-    eww # Added Eww Wayland widget toolkit
+    ghostty
+    kitty
+    eww # Adds Eww Wayland widget toolkit
+    zoxide # cd command that remembers your most frequently used directories.
+    fzf # fast command-line fuzzy finder that integrates directly with fd and ripgrep.
+    cava # Terminal Audio Visualizer
+    yazi # nnn or ranger alternatives, features image previews, smooth async loading, and integrates with tools like ripgrep and fd.
   ];
 
   services.openssh.enable = true;
