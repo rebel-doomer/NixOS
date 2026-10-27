@@ -153,7 +153,7 @@
     set -g @dracula-show-powerline true
     set -g @dracula-refresh-rate 5
   '';
-  
+
   # Declaratively generate btop configuration with Dracula theme
   environment.etc."btop/btop.conf".text = ''
     color_theme = "dracula"
@@ -522,6 +522,8 @@
     kdePackages.kdevelop
     kdePackages.dolphin
     kdePackages.dolphin-plugins
+    kdepim-runtime
+    korganizer # note: look into kalendar / merkuro as alternatives
     picom
     playonlinux
     mupen64plus
