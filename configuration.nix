@@ -522,7 +522,7 @@
     kdePackages.kdevelop
     kdePackages.dolphin
     kdePackages.dolphin-plugins
-    kdepim-runtime
+    kdePackages.kdepim-runtime
     korganizer # note: look into kalendar / merkuro as alternatives
     picom
     playonlinux
