@@ -553,6 +553,7 @@
     dmidecode
     ghostty
     kitty
+    github-desktop
     eww # Adds Eww Wayland widget toolkit
     zoxide # cd command that remembers your most frequently used directories.
     fzf # fast command-line fuzzy finder that integrates directly with fd and ripgrep.
