@@ -202,7 +202,7 @@
   '';
 
   environment.etc."eww/eww.scss".text = ''
-    * {
+- {
       font-family: monospace;
     }
 
@@ -523,8 +523,8 @@
     kdePackages.dolphin
     kdePackages.dolphin-plugins
     kdePackages.kdepim-runtime
-    korganizer # note: look into kalendar / merkuro as alternatives
-    picom
+    kdePackages.korganizer # Fixed variable prefix
+    # picom
     playonlinux
     mupen64plus
     weather
